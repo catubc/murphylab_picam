@@ -13,7 +13,7 @@ import csv
 
 #import matplotlib.pylab as plt
 
-mount_dir = "ssd/recordings"
+mount_dir = "TRANSFER/recordings"
 
 #Input recording length
 rec_length = int(input("Enter recording duration (sec): "))
@@ -27,6 +27,12 @@ with open("/media/pi/"+mount_dir+"/"+out_filename+"_n_pixels.txt", "wt") as f:
     writer=csv.writer(f)
     writer.writerow([rec_resolution])
 
+#Input recording resolution; required to be saved for intensity checks
+rec_rate = int(input("Enter recording rate in HZ  (e.g. 30): "))
+with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_rate.txt", "wt") as f:
+    writer=csv.writer(f)
+    writer.writerow([rec_rate])
+    
 #Save rec_mode to disk and then load it independently in encoders.py
 rec_mode = int(input("Enter data saving mode: 1-disk (longer); 2-memory (shorter): "))
 with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_mode.txt", "wt") as f:
@@ -47,7 +53,7 @@ camera.led = False
 #camera.iso=800
 camera.rotation=90
 camera.resolution = (rec_resolution, rec_resolution)
-camera.framerate = 30
+camera.framerate = rec_rate    #30
 camera.shutter_speed = camera.exposure_speed
 camera.shutter_speed = 30000
 
@@ -79,7 +85,7 @@ except KeyboardInterrupt:
     camera.stop_preview()
     print("Done aligning")
     
-if True: 
+if False: 
     while True:
         if ( (camera.analog_gain<=1.1) and (camera.analog_gain>=0.9)
             and (camera.digital_gain<=1.05) and (camera.digital_gain>=1)):
@@ -94,6 +100,8 @@ if True:
         print("Digital:", float(camera.digital_gain))
         time.sleep(0.5)
 
+else:
+    print ('...skipping gain setting... NOT GOOD...')
 
 
 #********* INTENSITY DETECTION *********

@@ -339,18 +339,18 @@ class PiEncoder(object):
                             #print (np.array(data_array[::3]).reshape(256,256).shape)
                             #print (np.amax(np.array(data_array[::3]).reshape(256,256)))
                             #self.red_graph_max.set_ydata(np.amax(np.array(data_array[::3]).reshape(256,256),axis=0))
-                            self.red_graph_mean.set_ydata(np.mean(np.array(data_array[::3]).reshape(256,256),axis=0))
-                            self.red_graph_max.set_ydata(np.percentile(np.array(data_array[::3]).reshape(256,256),96, axis=0))
+                            self.red_graph_mean.set_ydata(np.mean(np.array(data_array[::3]).reshape(self.n_pixels,self.n_pixels),axis=0))
+                            self.red_graph_max.set_ydata(np.percentile(np.array(data_array[::3]).reshape(self.n_pixels,self.n_pixels),96, axis=0))
 
                             #self.green_graph_max.set_ydata(np.amax(np.array(data_array[1::3]).reshape(256,256),axis=0))
-                            self.green_graph_mean.set_ydata(np.mean(np.array(data_array[1::3]).reshape(256,256),axis=0))
-                            self.green_graph_max.set_ydata(np.percentile(np.array(data_array[1::3]).reshape(256,256),96, axis=0))
+                            self.green_graph_mean.set_ydata(np.mean(np.array(data_array[1::3]).reshape(self.n_pixels,self.n_pixels),axis=0))
+                            self.green_graph_max.set_ydata(np.percentile(np.array(data_array[1::3]).reshape(self.n_pixels,self.n_pixels),96, axis=0))
 
                             #self.blue_graph_max.set_ydata(np.amax(np.array(data_array[2::3]).reshape(256,256),axis=0))
-                            self.blue_graph_mean.set_ydata(np.mean(np.array(data_array[2::3]).reshape(256,256),axis=0))
-                            self.blue_graph_max.set_ydata(np.percentile(np.array(data_array[2::3]).reshape(256,256),96,axis=0))
+                            self.blue_graph_mean.set_ydata(np.mean(np.array(data_array[2::3]).reshape(self.n_pixels,self.n_pixels),axis=0))
+                            self.blue_graph_max.set_ydata(np.percentile(np.array(data_array[2::3]).reshape(self.n_pixels,self.n_pixels),96,axis=0))
 
-                        plt.ylim(0,255)
+                        plt.ylim(0,self.n_pixels-1)
                         plt.draw()
                         
                         written = buf.length
