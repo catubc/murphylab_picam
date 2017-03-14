@@ -306,16 +306,18 @@ class PiEncoder(object):
             with self.outputs_lock:
                 try:
                     output = self.outputs[key][0]
-                    self.output_times.append (self.frame.timestamp)
-                    #self.output_times.write(str(self.frame.timestamp)+"\n")
-                    #self.output_times.write(str(time.time())+"\n") #self.camera.
-                    #written = output.write(buf.data)
+                    self.output_times.append (self.frame.timestamp)                 #Save timestamp to list
+                    print (".............", len(buf))
+                    
+                    #Different options
                     if self.write_mode == 1:                    #Write do disk directly
                         written = output.write(buf.data)
                     elif self.write_mode == 2:                  #Write to memory only
                         self.written_array.append(buf.data)
                         written = buf.length
-                    elif self.write_mode == 3:
+                    elif self.write_mode == 3:                  #Intensity fuction option
+                        
+                        #TODO: ************* Move these display functions to separate function *******************
                         data_array = struct.unpack(self.n_pixels_string,buf.data)
 
                         #print ("Percentile / Mean / Max      R:", int(np.percentile(data_array[::3],96)),'/',int(np.mean(data_array[::3])),'/',np.max(data_array[::3]),
