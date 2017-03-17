@@ -37,9 +37,9 @@ if False:
 else:
     out_filename = 'test_'+str(np.random.randint(1000))
     rec_resolution = 128
-    rec_rate = 60
-    rec_mode = 1
-    rec_length = 30/rec_rate+60 
+    rec_rate = 10 
+    rec_mode = 2
+    rec_length = 30/rec_rate+600 
 
 with open("/media/pi/"+mount_dir+"/"+out_filename+"_n_pixels.txt", "wt") as f:
     writer=csv.writer(f)
@@ -76,7 +76,7 @@ camera.resolution = (rec_resolution, rec_resolution)
 camera.framerate = rec_rate    #30
 camera.shutter_speed = camera.exposure_speed
 #camera.shutter_speed = int(1E6/rec_rate*.9)                #WHAT DOES THIS DO EXACTLY ????????????
-camera.shutter_speed = 10000 #10 msec
+camera.shutter_speed = 6000 #10 msec
 
 print ("...camera.shutter_speed...", camera.shutter_speed )
 camera.clock_mode = 'raw'       #This outputs absolute GPU clock time instead of Delta_time
@@ -95,7 +95,7 @@ if True:
 #**************************** ALIGN CAMERA ***************************
 #*********************************************************************
 
-if True: 
+if False: 
     try:
         print('Align imaging (ctrl+c to exit)')
         camera.preview_fullscreen = False
@@ -151,7 +151,7 @@ if False:
     print("Checking intensity boissss.")
     GPIO.output(server_pin, True)
     camera.start_recording("/media/pi/"+mount_dir+"/"+out_filename+".raw", format="rgb")
-    camera.wait_recording(15)
+    camera.wait_recording(30)
     camera.stop_recording()        
     GPIO.output(server_pin, False)
     
@@ -196,6 +196,6 @@ if recording:
 
     print ("... done recording ...")
 
-    quit()
-
     t.shutdown()
+
+    quit()
