@@ -5,7 +5,7 @@ from datetime import datetime
 import RPi.GPIO as GPIO
 import numpy as np
 import csv, os
-from concurrent.futures import ThreadPoolExecutor
+#from concurrent.futures import ThreadPoolExecutor
 from picamera import mmal, mmalobj as mo
 
 
@@ -31,7 +31,7 @@ def strobe(camera_obj):
     params = []
 
     #Wait for first second worth of frames to be written to disk
-    t_wait = 30/camera_obj.rec_rate +1.0
+    t_wait = 4*(30/camera_obj.rec_rate)+0.5
     print ("...waiting: ", t_wait, " for 30 frame times to be written: ", camera_obj.first_100_frames_filename)
     time.sleep(t_wait)
     

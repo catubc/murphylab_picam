@@ -5,10 +5,10 @@ from datetime import datetime
 import RPi.GPIO as GPIO
 import numpy as np
 import csv, os
-from concurrent.futures import ThreadPoolExecutor
+#from concurrent.futures import ThreadPoolExecutor
 from picamera import mmal, mmalobj as mo
-
-from utils import strobe
+from subprocess import call
+#from utils import strobe
 
 #import matplotlib.pylab as plt
 #matplotlib.use('TkAgg')
@@ -23,7 +23,7 @@ from utils import strobe
 #**************** GET INPUT PARAMETERS OR LOAD PRESET ****************
 #*********************************************************************
 
-mount_dir = "52C9C2EE6A8E5C89/recs"    #SSD
+#mount_dir = "52C9C2EE6A8E5C89/recs"    #SSD
 mount_dir = '2AA09E4DA09E1F7F/recs'     #1TB
 #mount_dir = 'recs'     #internal flash
 
@@ -35,12 +35,16 @@ if False:
     rec_mode = int(input("Enter data saving mode: 1-disk (longer); 2-memory (shorter): "))      #Save rec_mode to disk and then load it independently in encoders.py
 
 else:
-    out_filename = 'test_'+str(np.random.randint(1000))
+    #out_filename = 'test_'+str(np.random.randint(1000))
+    out_filename = 'test_999'
     rec_resolution = 128
-    rec_rate = 10 
+    rec_rate = 60
     rec_mode = 2
-    rec_length = 30/rec_rate+600 
-
+    rec_length = 30/rec_rate+180
+    
+    os.system('rm /media/pi/2AA09E4DA09E1F7F/recs/test_999*')
+    time.sleep(0.5)
+    
 with open("/media/pi/"+mount_dir+"/"+out_filename+"_n_pixels.txt", "wt") as f:
     writer=csv.writer(f)
     writer.writerow([rec_resolution])
@@ -76,7 +80,7 @@ camera.resolution = (rec_resolution, rec_resolution)
 camera.framerate = rec_rate    #30
 camera.shutter_speed = camera.exposure_speed
 #camera.shutter_speed = int(1E6/rec_rate*.9)                #WHAT DOES THIS DO EXACTLY ????????????
-camera.shutter_speed = 6000 #10 msec
+camera.shutter_speed = 10000 #10 msec
 
 print ("...camera.shutter_speed...", camera.shutter_speed )
 camera.clock_mode = 'raw'       #This outputs absolute GPU clock time instead of Delta_time
@@ -178,14 +182,14 @@ if recording:
     camera_obj.first_100_frames_filename = "/media/pi/" + mount_dir + "/" + out_filename + '.raw_first_100_frames.txt'
 
 
-    #********* GPU CLOCK PROCESSING ***********
-    if False:
-        strobe(camera_obj)
+    ##********* GPU CLOCK PROCESSING ***********
+    #if False:
+        #strobe(camera_obj)
 
-    #************ MULTI THREAD VERSION **************
-    else: 
-        t = ThreadPoolExecutor(max_workers=1)
-        t.map(strobe, [camera_obj])
+    ##************ MULTI THREAD VERSION **************
+    #else: 
+        #t = ThreadPoolExecutor(max_workers=1)
+        #t.map(strobe, [camera_obj])
     
     camera.start_recording("/media/pi/"+mount_dir+"/"+out_filename+".raw", format="rgb")
 
@@ -196,6 +200,6 @@ if recording:
 
     print ("... done recording ...")
 
-    t.shutdown()
+    #t.shutdown()
 
-    quit()
+    #quit()
