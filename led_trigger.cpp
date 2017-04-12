@@ -31,8 +31,17 @@ int pin_short_blue = 26;                //#12 works; 13 does not
 int pin = pin_blue;
 int ctr=0;
 
-int useconds = 5000;
+int useconds = 14000;
+FILE *fp;       //MUST BE GLOBAL
+FILE *myFile;
 
+char line[256]; 
+char file_name[] = "/media/pi/2AA09E4DA09E1F7F/recs/test_999.raw_latest_frame.txt"; //GLOBAL deals with file inside function
+int i;
+unsigned long long frame_time;
+unsigned long previous_gpu_time=0; 
+unsigned long long previous_frame=0;
+    
 int unicam_open() {
     void* mmap_result;
    
@@ -67,14 +76,17 @@ int unicam_open() {
 //*********************** LED TRIGGERING LOOP *******************
 //***************************************************************
 
-void trigger_led(unsigned long long current_frame, double ave, unsigned long long temp_time) {
+void trigger_led(unsigned long long current_frame, unsigned long long temp_time) {
       
-    if ((temp_time-current_frame*ave)>0) {
-         printf ("%f\n", temp_time-current_frame*ave);
-    }
-    else {
-         printf ("** %f\n", temp_time-current_frame*ave);
-    }
+    //if ((temp_time-current_frame*ave)>1) {
+    //     printf ("%f\n", temp_time-current_frame*ave);
+    //}
+    fprintf(fp, "%llu %llu\n", temp_time, current_frame);
+    
+    //else {
+    //     printf ("** %f\n", temp_time-current_frame*ave);
+    //}
+    
     
     if (ctr%2 == 0) {
         //ON
@@ -90,6 +102,44 @@ void trigger_led(unsigned long long current_frame, double ave, unsigned long lon
 }
 
 
+//******************************************************
+//***********************  LOAD LATEST FRAME TIME LOOP *********
+//******************************************************
+void read_current_frame(double ave) {
+
+    myFile = fopen(file_name, "r"); //open file for reading
+    
+    //CONVERT raw frametimes to integer for computation below
+    while (fgets(line, sizeof(line), myFile)) {
+    //for (i=0; i<100; ++i) {
+        frame_time = strtoull(line, NULL, 0);
+        //int result = _atoi64(line);
+        //printf("%llu\n", result);
+        //printf("%i %llu \n", i, frame_time[i]);
+        i++;
+    }
+    fclose(myFile);
+    
+    printf ("Loaded GPU time : %llu\n", frame_time);
+    printf ("...frame no.: %d\n", int(frame_time/ave));
+    previous_gpu_time = frame_time;
+    //COMPUTE PREVIOUS FRAME
+    
+    //return 0;
+    
+    //printf ("Number of frames refreshed: %d \n", i);
+    
+    ////COMPUTE AVERAGE inter frame interval for interpolation of all frame times
+    //sum=0;
+    //for(i = 30; i < 99; ++i) {
+        //ifi[i] = frame_time[i+1]-frame_time[i];
+        //sum = sum+ifi[i];
+        //printf("%i %d \n ", i, ifi[i]);
+    //}
+    //printf ("%f", sum);
+    //double ave = sum/69.;
+
+}
 //******************************************************
 //***********************  MAIN LOOP *******************
 //******************************************************
@@ -112,8 +162,6 @@ int main() {
     *(gpio.addr + (pin/10)) |=  (1<<((pin%10)*3));
     
     
-
-
     // GENERATE Memory mapping
     printf("Openning unicam 1...\n");
     if (unicam_open() == -1) {
@@ -121,61 +169,45 @@ int main() {
       return 1;
     }
 
+    //*********** GENERATE TIME STAMPS FROM DISK **************
     // LOAD data file from disk;
-    char ch, file_name[] = "/media/pi/2AA09E4DA09E1F7F/recs/test_999.raw_first_100_frames.txt";
-    FILE *myFile;
-    char line[256];
-    
-    int numberArray[100];
 
-    myFile = fopen(file_name, "r"); //read file
+    double ave;
+    int new_frame=0;
+    //int ifi[100];
     
-    int i, j;
-    i = 0;
-    unsigned long long frame_time[500];
-
-    //CONVERT raw frametimes to integer for computation below
-    while (fgets(line, sizeof(line), myFile)) {
-        
-        frame_time[i] = strtoull(line, NULL, 0);
-        
-        //int result = _atoi64(line);
-        //printf("%llu \n", frame_time[i]);
-        
-        i++;
-    }
-    
-    printf ("Number of frames loaded: %d \n", i);
-    
-    //COMPUTE AVERAGE inter frame interval for interpolation of all frame times
-    double sum=0;
-    int ifi[500];
-    for(j = 0; j < i-1; ++j)
-    {
-        ifi[j] = frame_time[j+1]-frame_time[j];
-        sum = sum+ifi[j];
-        //printf( "%d \n ", ifi[j]);
-    }
-    
-    double ave = sum/j;
+    ave = 16611.25;
     
     printf ("Average interframe interval:%f \n", ave);
 
    
     //***************** WHILE LOOP WAITING FOR NEXT FRAME **********************
-    unsigned long long temp_time, current_frame, previous_frame=0;
-    while (1) {
+    //Open file for saving 
+    fp = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999_led_times.txt", "w");
 
+    unsigned long long temp_time, current_frame;
+    while (1) {
+    //int a;
+    //for (a=0; a<20000000; a=a+1){
         //READ current GPU time stamp and determine what the current_frame # is
-        temp_time = unicam_base[1];
-        current_frame = temp_time / ave;
+        temp_time = unicam_base[1];  //Offset GPU time by latest info on previous frame_time; Helps with Drift
+        current_frame = (temp_time-previous_gpu_time) / ave;
         
         //TRIGGER lights/printout statements if new frame is detected
         if (current_frame > previous_frame) {
-    
-            trigger_led(current_frame, ave, temp_time);
+            printf ("%llu %llu %llu\n", temp_time, previous_gpu_time, current_frame);
+            trigger_led(current_frame, temp_time);
             previous_frame=current_frame;
+
+            if ((current_frame%60)==0){
+                read_current_frame(ave);
+                previous_frame=0;
+            }
         }
+
     }
+    
+    fclose(fp);
+    
    return 0;
 }

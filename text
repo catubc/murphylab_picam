@@ -1,0 +1,1000 @@
+ 1003  ls
+ 1004  cd murphylab_picam/
+ 1005  ls
+ 1006  sudo python3 green_slide_preview_cat.py 
+ 1007  sudo fdisk
+ 1008  sudo python3 green_slide_preview_cat.py 
+ 1009  sudo geany &
+ 1010  sudo python3 green_slide_preview_cat.py 
+ 1011  sudo geany &
+ 1012  sudo python3 green_slide_preview_cat.py 
+ 1013  sudo pip3 install thread
+ 1014  sudo python3 green_slide_preview_cat.py 
+ 1015  pyhon3 est
+ 1016  pyhon3 test.py
+ 1017  python3 test.py
+ 1018  cd ..
+ 1019  cd murphylab_picam/
+ 1020  sudo python3 ge
+ 1021  sudo python3 green_slide_preview_cat.py 
+ 1022  pwd
+ 1023  sudo python3 green_slide_preview_cat.py 
+ 1024  cd ..
+ 1025  sudo geany &
+ 1026  sudo python3 green_slide_preview_cat.py 
+ 1027  python3 green_slide_preview_cat.py 
+ 1028  sudo python3 green_slide_preview_cat.py 
+ 1029  raspi-config
+ 1030  sudo raspi-config
+ 1031  sudo python3 green_slide_preview_cat.py 
+ 1032  sudo raspi-config
+ 1033  startx
+ 1034  sudo python3 green_slide_preview_cat.py 
+ 1035  sudo raspi-config
+ 1036  sudo python3 green_slide_preview_cat.py 
+ 1037  sudo raspi-config
+ 1038  sudo python3 green_slide_preview_cat.py 
+ 1039  grep -r "MMAL_PARAMETER_SYSTEM_TIME"
+ 1040  grep -r "get_timestamp"
+ 1041  cd ..
+ 1042  grep -r "get_timestamp"
+ 1043  cd picamera
+ 1044  grep -r "get_timestamp"
+ 1045  cd /media
+ 1046  cd pi
+ 1047  ls
+ 1048  cd 52C9C2EE6A8E5C89/
+ 1049  ls
+ 1050  cd recs
+ 1051  ls test.raw_firstframe_time.txt 
+ 1052  pwd
+ 1053  ls
+ 1054  pwd
+ 1055  cd ..
+ 1056  cd
+ 1057  cd strobe/
+ 1058  python test.py
+ 1059  python3 test.py
+ 1060  cd /media
+ 1061  cd pi/
+ 1062  ls
+ 1063  cd 2AA09E4DA09E1F7F/
+ 1064  pwd
+ 1065  sudo python3 green_slide_preview_cat.py 
+ 1066  sudo python3 main.py
+ 1067  sudo pip3 install os
+ 1068  sudo pip install os
+ 1069  sudo pip3 install os
+ 1070  sudo python3 main.py
+ 1071  sudo geany &
+ 1072  sudo python3 main.py 
+ 1073  sudo mkdir /media/pi/recs
+ 1074  sudo python3 main.py 
+ 1075  sudo python3
+ 1076  sudo python3 main.py 
+ 1077  python3
+ 1078  sudo python3 main.py 
+ 1079  ls /media/pi
+ 1080  sudo python3 main.py 
+ 1081  raspivid -t 10000
+ 1082  raspivid -t --nopreview 10000
+ 1083  raspivid --nopreview -t 10000
+ 1084  raspivid --nopreview -t 100000
+ 1085  cd..
+ 1086  cd
+ 1087  cd murphylab_picam/
+ 1088  ls
+ 1089  vi main.py 
+ 1090  sudo python3 main.py 
+ 1091  vi main.py 
+ 1092  sudo python3 main.py 
+ 1093  vi main.py 
+ 1094  sudo python3 main.py 
+ 1095  cd
+ 1096  cd usr
+ 1097  ls
+ 1098  cd /
+ 1099  cd usr
+ 1100  ls
+ 1101  cd lib
+ 1102  ls
+ 1103  cd python3
+ 1104  ls
+ 1105  cd dist-packages/
+ 1106  ls
+ 1107  cd picamera
+ 1108  ls
+ 1109  grep -r "get_timestamp"
+ 1110  grep -r "timestamp"
+ 1111  clear
+ 1112  grep -r "timestamp"
+ 1113  sudo geany frames.py &
+ 1114  sudo geany streams.py &
+ 1115  sudo apt-get install imagej
+ 1116  sudo apt-get update
+ 1117  sudo apt-get install imagej
+ 1118  sudo python3 main.py 
+ 1119  imagej 
+ 1120  sudo python3 main.py 
+ 1121  git init
+ 1122  git add .
+ 1123  git commit -m "updated code"
+ 1124  git push
+ 1125  sudo python3 main.py 
+ 1126  python3
+ 1127  sudo python3 main.py 
+ 1128  sudo geany &
+ 1129  sudo python3 main.py 
+ 1130  sudo apt-get install calculator
+ 1131  sudo apt-get install calc
+ 1132  pi
+ 1133  gnome-cal
+ 1134  gnome-calculator
+ 1135  sudo apt-get install gnome-calculator
+ 1136  sudo apt-get update
+ 1137  sudo apt-get install gnome-calculator
+ 1138  sudo apt-get --fix-missing
+ 1139  sudo apt-get install --fix-missing
+ 1140  sudo apt-get install gnome-calculator
+ 1141  sudo apt-get install calc
+ 1142  sudo python3 main.py 
+ 1143  gcalctool
+ 1144  sudo apt-get install gcalctool
+ 1145  sudo python3 main.py 
+ 1146  sudo apt-get install Decimal
+ 1147  sudo pip3 install Decimal
+ 1148  sudo pip3 install decimal
+ 1149  sudo python3 main.py 
+ 1150  c
+ 1151  sudo python3 main.py 
+ 1152  geany & 
+ 1153  sudo geany & 
+ 1154  sudo python3 main.py 
+ 1155  c
+ 1156  sudo python3 main.py 
+ 1157  \
+ 1158  sudo geany &
+ 1159  ls
+ 1160  cd ..
+ 1161  ls
+ 1162  history
+ 1163  history > text
+ 1164  vi text
+ 1165  cd 
+ 1166  cd HeadFixLaserPi/
+ 1167  ls
+ 1168  cd ..
+ 1169  cd Desktop/
+ 1170  vi text
+ 1171  cd ..
+ 1172  grep -r "Projects"
+ 1173  cd Desktop/
+ 1174  vi text
+ 1175  cd
+ 1176  git clone pi@142.103.107.236:/home/pi/git/repositories/AutoHeadFix
+ 1177  cd AutoHeadFix/
+ 1178  ls
+ 1179  cd src
+ 1180  ls
+ 1181  sudo geany &
+ 1182  ls
+ 1183  cd AutoHeadFix/
+ 1184  ls
+ 1185  cd ..
+ 1186  ls
+ 1187  cd LeverModule/
+ 1188  ls
+ 1189  cd ..
+ 1190  ls
+ 1191  cd
+ 1192  rm -rf AutoHeadFix/
+ 1193  git clone pi@142.103.107.236:/home/pi/git/repositories/AutoHeadFix
+ 1194  cd AutoHeadFix/
+ 1195  ls
+ 1196  cd src
+ 1197  ls
+ 1198  cd LeverModule/
+ 1199  ls
+ 1200  cd ..
+ 1201  ls
+ 1202  cd AutoHeadFix/
+ 1203  ls
+ 1204  cd Adafruit/
+ 1205  l
+ 1206  ls
+ 1207  cd ..
+ 1208  ls
+ 1209  cd ..
+ 1210  ls
+ 1211  cd ..
+ 1212  history > text
+ 1213  vi text
+ 1214  geany text
+ 1215  geany text &
+ 1216  git clone pi@142.103.107.236:/home/pi/git/repositories/PythonWiringThreads
+ 1217  ls
+ 1218  cd PythonWiringThreads/
+ 1219  cd ..
+ 1220  rm *.raw
+ 1221  ls
+ 1222  rm *.png
+ 1223  ls
+ 1224  cd PythonWiringThreads/
+ 1225  ls
+ 1226  python3 setup_ptSimpleGPIO.py bulid_ext --inplace
+ 1227  python3 setup_ptSimpleGPIO.py build_ext --inplace
+ 1228  grep -r "ARM"
+ 1229  ls
+ 1230  ls *.cpp
+ 1231  gcc -o output forum_code.cpp 
+ 1232  ./output
+ 1233  sudo ./output
+ 1234  gcc -o output forum_code.cpp 
+ 1235  sudo ./output
+ 1236  gcc -o output forum_code.cpp 
+ 1237  sudo ./output
+ 1238  cd
+ 1239  cd Downloads/
+ 1240  ls
+ 1241  grep -r "BRCM_READ_REG"
+ 1242  grep -r "BRCM"
+ 1243  grep -r "BRCM_READ"
+ 1244  grep - "CLM_CLK"
+ 1245  grep -r "CLM_CLK"
+ 1246  grep -r "CAM_CLK"
+ 1247  cd
+ 1248  cd PythonWiringThreads/
+ 1249  ls
+ 1250  history
+ 1251  gcc -o output forum_code.cpp
+ 1252  sudo ./output
+ 1253  gcc -o output forum_code.cpp
+ 1254  sudo ./output
+ 1255  gcc -o output forum_code.cpp
+ 1256  sudo ./output
+ 1257  gcc -o output forum_code.cpp
+ 1258  sudo ./output
+ 1259  gcc -o output forum_code.cpp
+ 1260  sudo ./output
+ 1261  gcc -o output forum_code.cpp
+ 1262  sudo ./output
+ 1263  gcc -o output forum_code.cpp
+ 1264  sudo ./output
+ 1265  gcc -o output forum_code.cpp
+ 1266  sudo ./output
+ 1267  gcc -o output forum_code.cpp
+ 1268  sudo ./output
+ 1269  gcc -o output forum_code.cpp
+ 1270  sudo ./output
+ 1271  gcc -o output forum_code.cpp
+ 1272  sudo ./output
+ 1273  gcc -o output forum_code.cpp
+ 1274  sudo ./output
+ 1275  gcc -o output forum_code.cpp
+ 1276  sudo ./output
+ 1277  gcc -o output forum_code.cpp
+ 1278  sudo ./output
+ 1279  gcc -o output forum_code.cpp
+ 1280  sudo ./output
+ 1281  gcc -o output forum_code.cpp
+ 1282  sudo ./output
+ 1283  gcc -o output forum_code.cpp
+ 1284  sudo ./output
+ 1285  gcc -o output forum_code.cpp
+ 1286  sudo ./output
+ 1287  gcc -o output forum_code.cpp
+ 1288  sudo ./output
+ 1289  gcc -o output forum_code.cpp
+ 1290  sudo ./output
+ 1291  gcc -o output forum_code.cpp
+ 1292  sudo ./output
+ 1293  gcc -o output forum_code.cpp
+ 1294  sudo ./output
+ 1295  gcc -o output forum_code.cpp
+ 1296  sudo ./output
+ 1297  gcc -o output forum_code.cpp
+ 1298  sudo ./output
+ 1299  gcc -o output forum_code.cpp
+ 1300  sudo ./output
+ 1301  gcc -o output forum_code.cpp
+ 1302  sudo ./output
+ 1303  gcc -o output forum_code.cpp
+ 1304  sudo ./output
+ 1305  gcc -o output forum_code.cpp
+ 1306  sudo ./output
+ 1307  gcc -o output forum_code.cpp
+ 1308  sudo ./output
+ 1309  gcc -o output forum_code.cpp
+ 1310  sudo ./output
+ 1311  gcc -o output forum_code.cpp
+ 1312  sudo ./output
+ 1313  gcc -o output forum_code.cpp
+ 1314  sudo ./output
+ 1315  gcc -o output forum_code.cpp
+ 1316  sudo ./output
+ 1317  gcc -o output forum_code.cpp
+ 1318  sudo ./output
+ 1319  gcc -o output forum_code.cpp
+ 1320  sudo ./output
+ 1321  gcc -o output clock_code.cpp 
+ 1322  sudo ./output
+ 1323  gcc -o output gpu_clock.cpp 
+ 1324  clear
+ 1325  gcc -o output gpu_clock.cpp 
+ 1326  gcc -o output clock_code.cpp 
+ 1327  sudo ./output
+ 1328  gcc -o output clock_code.cpp 
+ 1329  sudo ./output
+ 1330  gcc -o output clock_code.cpp 
+ 1331  sudo ./output
+ 1332  gcc -o output clock_code.cpp 
+ 1333  sudo ./output
+ 1334  gcc -o output clock_code.cpp 
+ 1335  sudo ./output
+ 1336  gcc -o output clock_code.cpp 
+ 1337  sudo ./output
+ 1338  gcc -o output clock_code.cpp 
+ 1339  sudo ./output
+ 1340  gcc -o output clock_code.cpp 
+ 1341  grep -r "MAP_FAILED"
+ 1342  gcc -o output clock_code.cpp 
+ 1343  grep -r "MAP_FAILED"
+ 1344  sudo ./output
+ 1345  grep -r "MAP_FAILED"
+ 1346  gcc -o output clock_code.cpp 
+ 1347  sudo ./output
+ 1348  gcc -o output clock_code.cpp 
+ 1349  sudo ./output
+ 1350  gcc -o output clock_code.cpp 
+ 1351  sudo ./output
+ 1352  gcc -o output clock_code.cpp 
+ 1353  sudo ./output
+ 1354  gcc -o output clock_code.cpp 
+ 1355  sudo ./output
+ 1356  gcc -o output clock_code.cpp 
+ 1357  sudo ./output
+ 1358  gcc -o output clock_code.cpp 
+ 1359  sudo ./output
+ 1360  gcc -o output clock_code.cpp 
+ 1361  sudo ./output
+ 1362  gcc -o output clock_code.cpp 
+ 1363  sudo ./output
+ 1364  gcc -o output clock_code.cpp 
+ 1365  sudo ./output
+ 1366  gcc -o output clock_code.cpp 
+ 1367  sudo ./output
+ 1368  gcc -o output clock_code.cpp 
+ 1369  sudo ./output
+ 1370  gcc -o output clock_code.cpp 
+ 1371  clear
+ 1372  gcc -o output clock_code.cpp 
+ 1373  clear
+ 1374  gcc -o output clock_code.cpp 
+ 1375  sudo ./output
+ 1376  gcc -o output clock_code.cpp 
+ 1377  sudo ./output
+ 1378  gcc -o output clock_code.cpp 
+ 1379  sudo ./output
+ 1380  gcc -o output clock_code.cpp 
+ 1381  sudo ./output
+ 1382  gcc -o output clock_code.cpp 
+ 1383  sudo ./output
+ 1384  gcc -o output clock_code.cpp 
+ 1385  sudo ./output
+ 1386  history
+ 1387  cd
+ 1388  cd PythonWiringThreads/
+ 1389  ls
+ 1390  gcc -o output clock_code.cpp 
+ 1391  sudo ./output
+ 1392  vi main.py 
+ 1393  vim -r main.py 
+ 1394  vi main.py 
+ 1395  sudo python3 main.py 
+ 1396  vi main.py 
+ 1397  sudo python3 main.py 
+ 1398  vi main.py 
+ 1399  sudo python3 main.py 
+ 1400  vi main.py 
+ 1401  sudo python3 main.py 
+ 1402  vi main.py 
+ 1403  ls -ah
+ 1404  rm .main.py.swp
+ 1405  vi main.py 
+ 1406  sudo python3 main.py 
+ 1407  vi main.py 
+ 1408  sudo python3 main.py 
+ 1409  git init
+ 1410  git add .
+ 1411  git commit -m "updated code"
+ 1412  git push
+ 1413  cd
+ 1414  ls
+ 1415  cd PythonWiringThreads/
+ 1416  ls
+ 1417  history
+ 1418  cd
+ 1419  cd code
+ 1420  cd murphylab_picam/
+ 1421  ls
+ 1422  sudo python3 main.py 
+ 1423  startx
+ 1424  cd murphylab_picam/
+ 1425  ls
+ 1426  sudo python3 main.py 
+ 1427  startx
+ 1428  vi main.py 
+ 1429  sudo python3 main.py 
+ 1430  startx
+ 1431  sudo python3 main.py 
+ 1432  startx
+ 1433  ls
+ 1434  cd /media/pi
+ 1435  ls
+ 1436  cd recs
+ 1437  ls
+ 1438  cd ..
+ 1439  rm -rf recs
+ 1440  ls
+ 1441  sudo rm -rf recs
+ 1442  ls
+ 1443  cd 2AA09E4DA09E1F7F/
+ 1444  ls
+ 1445  cd recs
+ 1446  pwd
+ 1447  ls
+ 1448  sudo geany test_999.raw_first_100_frames.txt &
+ 1449  cd murphylab_picam/
+ 1450  sudo python3 main.py 
+ 1451  sudo geany &
+ 1452  sudo python3 main.py 
+ 1453  sudo apt-get install calculator
+ 1454  sudo apt-get install gnome-calculator 
+ 1455  gnome-calculator 
+ 1456  sudoy geany &
+ 1457  sudo geany &
+ 1458  pcmanfm --desktop-pref
+ 1459  cd PythonWiringThreads/
+ 1460  sudo ./output 
+ 1461  cd PythonWiringThreads/
+ 1462  history
+ 1463  gcc -o output clock_code.cpp 
+ 1464  sudo ./output 
+ 1465  gcc -o output clock_code.cpp 
+ 1466  sudo ./output 
+ 1467  gcc -o output clock_code.cpp 
+ 1468  sudo ./output 
+ 1469  gcc -o output led_trigger.cpp 
+ 1470  sudo ./output
+ 1471  gcc -o output led_trigger.cpp 
+ 1472  sudo ./output
+ 1473  gcc -o output led_trigger.cpp 
+ 1474  sudo ./output
+ 1475  gcc -o output led_trigger.cpp 
+ 1476  sudo ./output
+ 1477  gcc -o output led_trigger.cpp 
+ 1478  sudo ./output
+ 1479  gcc -o output led_trigger.cpp 
+ 1480  sudo ./output
+ 1481  clear
+ 1482  gcc -o output led_trigger.cpp 
+ 1483  sudo ./output
+ 1484  gcc -o output led_trigger.cpp 
+ 1485  sudo ./output
+ 1486  gcc -o output led_trigger.cpp 
+ 1487  sudo ./output
+ 1488  gcc -o output led_trigger.cpp 
+ 1489  sudo ./output
+ 1490  gcc -o output led_trigger.cpp 
+ 1491  sudo ./output
+ 1492  gcc -o output led_trigger.cpp 
+ 1493  sudo ./output
+ 1494  gcc -o output led_trigger.cpp 
+ 1495  sudo ./output
+ 1496  gcc -o output led_trigger.cpp 
+ 1497  sudo ./output
+ 1498  gcc -o output led_trigger.cpp 
+ 1499  sudo ./output
+ 1500  gcc -o output led_trigger.cpp 
+ 1501  clear
+ 1502  gcc -o output led_trigger.cpp 
+ 1503  sudo ./output
+ 1504  gcc -o output led_trigger.cpp 
+ 1505  sudo ./output
+ 1506  gcc -o output led_trigger.cpp 
+ 1507  sudo ./output
+ 1508  gcc -o output led_trigger.cpp 
+ 1509  sudo ./output
+ 1510  gcc -o output led_trigger.cpp 
+ 1511  sudo ./output
+ 1512  gcc -o output led_trigger.cpp 
+ 1513  sudo ./output
+ 1514  gcc -o output led_trigger.cpp 
+ 1515  sudo ./output
+ 1516  gcc -o output led_trigger.cpp 
+ 1517  sudo ./output
+ 1518  gcc -o output led_trigger.cpp 
+ 1519  sudo ./output
+ 1520  gcc -o output led_trigger.cpp 
+ 1521  sudo ./output
+ 1522  gcc -o output led_trigger.cpp 
+ 1523  sudo ./output
+ 1524  gcc -o output led_trigger.cpp 
+ 1525  sudo ./output
+ 1526  gcc -o output led_trigger.cpp 
+ 1527  sudo ./output
+ 1528  gcc -o output led_trigger.cpp 
+ 1529  sudo ./output
+ 1530  gcc -o output led_trigger.cpp 
+ 1531  sudo ./output
+ 1532  gcc -o output led_trigger.cpp 
+ 1533  sudo ./output
+ 1534  gcc -o output led_trigger.cpp 
+ 1535  sudo ./output
+ 1536  gcc -o output led_trigger.cpp 
+ 1537  sudo ./output
+ 1538  gcc -o output led_trigger.cpp 
+ 1539  sudo ./output
+ 1540  gcc -o output led_trigger.cpp 
+ 1541  sudo ./output
+ 1542  gcc -o output led_trigger.cpp 
+ 1543  sudo ./output
+ 1544  gcc -o output led_trigger.cpp 
+ 1545  sudo ./output
+ 1546  gcc -o output led_trigger.cpp 
+ 1547  sudo ./output
+ 1548  gcc -o output led_trigger.cpp 
+ 1549  sudo ./output
+ 1550  gcc -o output led_trigger.cpp 
+ 1551  sudo ./output
+ 1552  gcc -o output led_trigger.cpp 
+ 1553  sudo ./output
+ 1554  gcc -o output led_trigger.cpp 
+ 1555  sudo ./output
+ 1556  gcc -o output led_trigger.cpp 
+ 1557  sudo ./output
+ 1558  gcc -o output led_trigger.cpp 
+ 1559  sudo ./output
+ 1560  gcc -o output led_trigger.cpp 
+ 1561  sudo ./output
+ 1562  gcc -o output led_trigger.cpp 
+ 1563  sudo ./output
+ 1564  gcc -o output led_trigger.cpp 
+ 1565  sudo ./output
+ 1566  gcc -o output led_trigger.cpp 
+ 1567  sudo ./output
+ 1568  gcc -o output led_trigger.cpp 
+ 1569  sudo ./output
+ 1570  gcc -o output led_trigger.cpp 
+ 1571  sudo ./output
+ 1572  gcc -o output led_trigger.cpp 
+ 1573  sudo ./output
+ 1574  gcc -o output led_trigger.cpp 
+ 1575  sudo ./output
+ 1576  gcc -o output led_trigger.cpp 
+ 1577  sudo ./output
+ 1578  gcc -o output led_trigger.cpp 
+ 1579  sudo ./output
+ 1580  gcc -o output led_trigger.cpp 
+ 1581  sudo ./output
+ 1582  gcc -o output led_trigger.cpp 
+ 1583  sudo ./output
+ 1584  gcc -o output led_trigger.cpp 
+ 1585  sudo ./output
+ 1586  gcc -o output led_trigger.cpp 
+ 1587  sudo ./output
+ 1588  gcc -o output led_trigger.cpp 
+ 1589  sudo ./output
+ 1590  gcc -o output led_trigger.cpp 
+ 1591  sudo ./output
+ 1592  gcc -o output led_trigger.cpp 
+ 1593  sudo ./output
+ 1594  gcc -o output led_trigger.cpp 
+ 1595  sudo ./output
+ 1596  gcc -o output led_trigger.cpp 
+ 1597  sudo ./output
+ 1598  gcc -o output led_trigger.cpp 
+ 1599  sudo ./output
+ 1600  gcc -o output led_trigger.cpp 
+ 1601  sudo ./output
+ 1602  gcc -o output led_trigger.cpp 
+ 1603  sudo ./output
+ 1604  gcc -o output led_trigger.cpp 
+ 1605  sudo ./output
+ 1606  gcc -o output led_trigger.cpp 
+ 1607  sudo ./output
+ 1608  gcc -o output led_trigger.cpp 
+ 1609  sudo ./output
+ 1610  gcc -o output led_trigger.cpp 
+ 1611  sudo ./output
+ 1612  gcc -o output led_trigger.cpp 
+ 1613  sudo ./output
+ 1614  gcc -o output led_trigger.cpp 
+ 1615  sudo ./output
+ 1616  gcc -o output led_trigger.cpp 
+ 1617  sudo ./output
+ 1618  gcc -o output led_trigger.cpp 
+ 1619  sudo ./output
+ 1620  gcc -o output led_trigger.cpp 
+ 1621  sudo ./output
+ 1622  gcc -o output led_trigger.cpp 
+ 1623  sudo ./output
+ 1624  gcc -o output led_trigger.cpp 
+ 1625  sudo ./output
+ 1626  gcc -o output led_trigger.cpp 
+ 1627  sudo ./output
+ 1628  gcc -o output led_trigger.cpp 
+ 1629  sudo ./output
+ 1630  gcc -o output led_trigger.cpp 
+ 1631  sudo ./output
+ 1632  gcc -o output led_trigger.cpp 
+ 1633  sudo ./output
+ 1634  sudo geany &
+ 1635  ls
+ 1636  python main.py 
+ 1637  pwd
+ 1638  python main.py 
+ 1639  python test.py
+ 1640  ls
+ 1641  cd Desktop/
+ 1642  python test.py 
+ 1643  cd ..
+ 1644  ls text
+ 1645  vi text
+ 1646  cd Desktop/
+ 1647  ls
+ 1648  vi text
+ 1649  cd ..
+ 1650  cd PythonWiringThreads/
+ 1651  vi text
+ 1652  pwd
+ 1653  python test.py
+ 1654  ls
+ 1655  cd ..
+ 1656  cd Desktop/
+ 1657  python test.py 
+ 1658  history
+ 1659  gcc -o output led_trigger.cpp 
+ 1660  cd ..
+ 1661  cd PythonWiringThreads/
+ 1662  gcc -o output led_trigger.cpp 
+ 1663  sudo ./output 
+ 1664  sudo geany led_trigger.cpp & 
+ 1665  gcc -o output led_trigger.cpp 
+ 1666  sudo ./output 
+ 1667  gcc -o output led_trigger.cpp 
+ 1668  sudo ./output 
+ 1669  cd PythonWiringThreads/
+ 1670  ls
+ 1671  sudo ./output
+ 1672  sudo ./output > text
+ 1673  vi text
+ 1674  vim
+ 1675  sudo apt-get install vim
+ 1676  vim text
+ 1677  vi led_trigger.cpp 
+ 1678  sudo vim led_trigger.cpp 
+ 1679  history
+ 1680  gcc -o output led_trigger.cpp 
+ 1681  sudo vim led_trigger.cpp 
+ 1682  gcc -o output led_trigger.cpp 
+ 1683  sudo ./output
+ 1684  sudo ./output > text
+ 1685  vi text
+ 1686  sudo ./output > text
+ 1687  vi text
+ 1688  sudo ./output > text
+ 1689  vi text
+ 1690  startx
+ 1691  sudo geany &
+ 1692  sudo python3 main.py 
+ 1693  cd
+ 1694  cd PythonWiringThreads/
+ 1695  ls
+ 1696  sudo ./output
+ 1697  ls
+ 1698  history
+ 1699  gcc -o output led_trigger.cpp 
+ 1700  sudo ./output
+ 1701  gcc -o output led_trigger.cpp 
+ 1702  sudo ./output
+ 1703  gcc -o output led_trigger.cpp 
+ 1704  sudo ./output
+ 1705  gcc -o output led_trigger.cpp 
+ 1706  sudo ./output
+ 1707  gcc -o output led_trigger.cpp 
+ 1708  sudo ./output
+ 1709  gcc -o output led_trigger.cpp 
+ 1710  sudo ./output
+ 1711  gcc -o output led_trigger.cpp 
+ 1712  sudo ./output
+ 1713  gcc -o output led_trigger.cpp 
+ 1714  sudo ./output
+ 1715  gcc -o output led_trigger.cpp 
+ 1716  sudo ./output
+ 1717  gcc -o output led_trigger.cpp 
+ 1718  sudo ./output
+ 1719  gcc -o output led_trigger.cpp 
+ 1720  sudo ./output
+ 1721  gcc -o output led_trigger.cpp 
+ 1722  sudo ./output
+ 1723  gcc -o output led_trigger.cpp 
+ 1724  sudo ./output
+ 1725  gcc -o output led_trigger.cpp 
+ 1726  sudo ./output
+ 1727  gcc -o output led_trigger.cpp 
+ 1728  sudo ./output
+ 1729  gcc -o output led_trigger.cpp 
+ 1730  sudo ./output
+ 1731  gcc -o output led_trigger.cpp 
+ 1732  sudo ./output
+ 1733  gcc -o output led_trigger.cpp 
+ 1734  sudo ./output
+ 1735  gcc -o output led_trigger.cpp 
+ 1736  sudo ./output
+ 1737  gcc -o output led_trigger.cpp 
+ 1738  sudo ./output
+ 1739  gcc -o output led_trigger.cpp 
+ 1740  sudo ./output
+ 1741  gcc -o output led_trigger.cpp 
+ 1742  sudo ./output
+ 1743  gcc -o output led_trigger.cpp 
+ 1744  sudo ./output
+ 1745  gcc -o output led_trigger.cpp 
+ 1746  sudo ./output
+ 1747  gcc -o output led_trigger.cpp 
+ 1748  sudo ./output
+ 1749  gcc -o output led_trigger.cpp 
+ 1750  sudo ./output
+ 1751  gcc -o output led_trigger.cpp 
+ 1752  sudo ./output
+ 1753  gcc -o output led_trigger.cpp 
+ 1754  sudo ./output
+ 1755  gcc -o output led_trigger.cpp 
+ 1756  sudo ./output
+ 1757  gcc -o output led_trigger.cpp 
+ 1758  sudo ./output
+ 1759  gcc -o output led_trigger.cpp 
+ 1760  sudo ./output
+ 1761  gcc -o output led_trigger.cpp 
+ 1762  sudo ./output
+ 1763  gcc -o output led_trigger.cpp 
+ 1764  sudo ./output
+ 1765  gcc -o output led_trigger.cpp 
+ 1766  sudo ./output
+ 1767  gcc -o output led_trigger.cpp 
+ 1768  sudo ./output
+ 1769  gcc -o output led_trigger.cpp 
+ 1770  sudo ./output
+ 1771  gcc -o output led_trigger.cpp 
+ 1772  sudo ./output
+ 1773  gcc -o output led_trigger.cpp 
+ 1774  sudo ./output
+ 1775  gcc -o output led_trigger.cpp 
+ 1776  sudo ./output
+ 1777  gcc -o output led_trigger.cpp 
+ 1778  sudo ./output
+ 1779  gcc -o output led_trigger.cpp 
+ 1780  sudo ./output
+ 1781  gcc -o output led_trigger.cpp 
+ 1782  sudo ./output
+ 1783  gcc -o output led_trigger.cpp 
+ 1784  sudo ./output
+ 1785  gcc -o output led_trigger.cpp 
+ 1786  sudo ./output
+ 1787  gcc -o output led_trigger.cpp 
+ 1788  sudo ./output
+ 1789  gcc -o output led_trigger.cpp 
+ 1790  sudo ./output
+ 1791  gcc -o output led_trigger.cpp 
+ 1792  sudo ./output
+ 1793  gcc -o output led_trigger.cpp 
+ 1794  sudo ./output
+ 1795  gcc -o output led_trigger.cpp 
+ 1796  sudo ./output
+ 1797  gcc -o output led_trigger.cpp 
+ 1798  sudo ./output
+ 1799  gcc -o output led_trigger.cpp 
+ 1800  sudo ./output
+ 1801  gcc -o output led_trigger.cpp 
+ 1802  sudo ./output
+ 1803  gcc -o output led_trigger.cpp 
+ 1804  sudo ./output
+ 1805  gcc -o output led_trigger.cpp 
+ 1806  sudo ./output
+ 1807  gcc -o output led_trigger.cpp 
+ 1808  sudo ./output
+ 1809  gcc -o output led_trigger.cpp 
+ 1810  sudo ./output
+ 1811  gcc -o output led_trigger.cpp 
+ 1812  sudo ./output
+ 1813  gcc -o output led_trigger.cpp 
+ 1814  sudo ./output
+ 1815  gcc -o output led_trigger.cpp 
+ 1816  sudo ./output
+ 1817  gcc -o output led_trigger.cpp 
+ 1818  sudo ./output
+ 1819  gcc -o output led_trigger.cpp 
+ 1820  sudo ./output
+ 1821  gcc -o output led_trigger.cpp 
+ 1822  sudo ./output
+ 1823  gcc -o output led_trigger.cpp 
+ 1824  sudo ./output
+ 1825  gcc -o output led_trigger.cpp 
+ 1826  sudo ./output
+ 1827  gcc -o output led_trigger.cpp 
+ 1828  sudo ./output
+ 1829  gcc -o output led_trigger.cpp 
+ 1830  sudo ./output
+ 1831  gcc -o output led_trigger.cpp 
+ 1832  sudo ./output
+ 1833  gcc -o output led_trigger.cpp 
+ 1834  sudo ./output
+ 1835  gcc -o output led_trigger.cpp 
+ 1836  sudo ./output
+ 1837  gcc -o output led_trigger.cpp 
+ 1838  sudo ./output
+ 1839  gcc -o output led_trigger.cpp 
+ 1840  sudo ./output
+ 1841  gcc -o output led_trigger.cpp 
+ 1842  sudo ./output
+ 1843  cd
+ 1844  cd PythonWiringThreads/
+ 1845  gcc -o output led_trigger.cpp 
+ 1846  cd PythonWiringThreads/
+ 1847  sudo ./output
+ 1848  cd PythonWiringThreads/
+ 1849  gcc -o output led_trigger.cpp 
+ 1850  sudo ./output
+ 1851  sudo geany &
+ 1852  ls
+ 1853  sudo python3 main.py 
+ 1854  cd PythonWiringThreads/
+ 1855  ls
+ 1856  sudo ./output 
+ 1857  startx
+ 1858  pwd
+ 1859  cd ..
+ 1860  ls
+ 1861  cd strobe
+ 1862  ls
+ 1863  cd ..
+ 1864  cd green\ slide/
+ 1865  ls
+ 1866  cd ..
+ 1867  cd murphylab_picam/
+ 1868  ls
+ 1869  sudo python3 main.py &
+ 1870  sudo 
+ 1871  sudo /home/pi/PythonWiringThreads/output
+ 1872  startx
+ 1873  cd PythonWiringThreads/
+ 1874  ls
+ 1875  sudo python3 /home/pi/murphylab_picam/main.py &
+ 1876  startx
+ 1877  sudo python3 /home/pi/murphylab_picam/main.py &
+ 1878  sudo ./output
+ 1879  startx
+ 1880  sudo python3 /home/pi/murphylab_picam/main.py &
+ 1881  sudo ./output
+ 1882  startx
+ 1883  cd 
+ 1884  ls
+ 1885  cd murphylab_picam/
+ 1886  ls
+ 1887  python main.py 
+ 1888  cd ..
+ 1889  ls
+ 1890  cd PythonWiringThreads/
+ 1891  ls
+ 1892  history
+ 1893  gcc -o output led_trigger.cpp
+ 1894  sudo ./output
+ 1895  sudo geany &
+ 1896  cp led_trigger.cpp ../murphylab_picam/
+ 1897  cp GPIOlowlevel.h ../murphylab_picam/
+ 1898  cd ..
+ 1899  cd murphylab_picam/
+ 1900  ls
+ 1901  sudo python3 main.py 
+ 1902  sudo python3 main.py &
+ 1903  sudo ./output
+ 1904  gcc -o output led_trigger.cpp
+ 1905  sudo ./output
+ 1906  ls
+ 1907  git init
+ 1908  git add .
+ 1909  git commit -m "strobing working (C-based)"
+ 1910  git push
+ 1911  cd ..
+ 1912  cd murphylab_picam/
+ 1913  sudo geany &
+ 1914  cd murphylab_picam/
+ 1915  ls
+ 1916  vi main.py 
+ 1917  sudo python3 main.py &
+ 1918  job
+ 1919  jobs 
+ 1920  kill 1
+ 1921  sudo kill 1
+ 1922  jobs
+ 1923  sudo kill [1]
+ 1924  jobs
+ 1925  sudo kill %1
+ 1926  sudo kill 1
+ 1927  kill 
+ 1928  kill 1
+ 1929  psf
+ 1930  sudo psf
+ 1931  sudu ps
+ 1932  sudo ps
+ 1933  kill 2362
+ 1934  sudo kill 2362
+ 1935  history
+ 1936  vi main.py 
+ 1937  sudo python3 main.py 
+ 1938  sudo python3 main.py  &
+ 1939  ./output
+ 1940  sudo ./output
+ 1941  startx
+ 1942  job
+ 1943  jobs
+ 1944  ps
+ 1945  kill 819
+ 1946  sudo kill 819
+ 1947  ls
+ 1948  sudo python3 main.py &
+ 1949  sudo ./output
+ 1950  cd ..
+ 1951  cd murphylab_picam/
+ 1952  sudo geany &
+ 1953  ps
+ 1954  kill 1980
+ 1955  kill 1990
+ 1956  ps
+ 1957  jobs
+ 1958  pgrep
+ 1959  pgrep jobs
+ 1960  pgrep wget
+ 1961  cd
+ 1962  vi text
+ 1963  vi matilde_picam.py 
+ 1964  cd murphylab_picam/
+ 1965  vi main.py 
+ 1966  sudo python3 main.py &
+ 1967  startx
+ 1968  jobs
+ 1969  clear
+ 1970  sudo python3 main.py  &
+ 1971  sudo ./output
+ 1972  jobs
+ 1973  ps
+ 1974  kill 796
+ 1975  ps
+ 1976  startx
+ 1977  vi main.py 
+ 1978  sudo python3 main.py  &
+ 1979  sudo ./output
+ 1980  ps
+ 1981  startx
+ 1982  jobs
+ 1983  ps
+ 1984  ps . text
+ 1985  vi text
+ 1986  startx
+ 1987  ps > text
+ 1988  vi text
+ 1989  exit
+ 1990  sudo geany &
+ 1991  vi main
+ 1992  cd murphylab_picam/
+ 1993  vi main.py 
+ 1994  sudo python3 main.py &
+ 1995  startx
+ 1996  sudo python3 main.py &
+ 1997  sudo ./output
+ 1998  exit
+ 1999  startx
+ 2000  cd murphylab_picam/
+ 2001  history
+ 2002  history > text

@@ -37,10 +37,10 @@ if False:
 else:
     #out_filename = 'test_'+str(np.random.randint(1000))
     out_filename = 'test_999'
-    rec_resolution = 128
+    rec_resolution = 128 
     rec_rate = 60
-    rec_mode = 2
-    rec_length = 30/rec_rate+180
+    rec_mode = 1 
+    rec_length = 30/rec_rate+60
     
     os.system('rm /media/pi/2AA09E4DA09E1F7F/recs/test_999*')
     time.sleep(0.5)
@@ -80,7 +80,7 @@ camera.resolution = (rec_resolution, rec_resolution)
 camera.framerate = rec_rate    #30
 camera.shutter_speed = camera.exposure_speed
 #camera.shutter_speed = int(1E6/rec_rate*.9)                #WHAT DOES THIS DO EXACTLY ????????????
-camera.shutter_speed = 10000 #10 msec
+camera.shutter_speed = 2000 #10 msec
 
 print ("...camera.shutter_speed...", camera.shutter_speed )
 camera.clock_mode = 'raw'       #This outputs absolute GPU clock time instead of Delta_time
@@ -197,8 +197,9 @@ if recording:
 
     camera.wait_recording(rec_length)
     camera.stop_recording()        
-
-    print ("... done recording ...")
+    
+    for k in range(10):
+        print ("... done recording ...")
 
     #t.shutdown()
 
