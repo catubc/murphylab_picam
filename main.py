@@ -1,13 +1,11 @@
 from __future__ import division
 import time
 import picamera
-from datetime import datetime
 import RPi.GPIO as GPIO
-import numpy as np
-import csv, os
+import csv
+import subprocess
 #from concurrent.futures import ThreadPoolExecutor
-from picamera import mmal, mmalobj as mo
-from subprocess import call
+#from picamera import mmal, mmalobj as mo
 #from utils import strobe
 
 #import matplotlib.pylab as plt
@@ -37,14 +35,18 @@ if False:
 else:
     #out_filename = 'test_'+str(np.random.randint(1000))
     out_filename = 'test_999'
-    rec_resolution = 128 
+    rec_resolution = 256 
     rec_rate = 60
     rec_mode = 1 
     rec_length = 30/rec_rate+60
     
-    os.system('rm /media/pi/2AA09E4DA09E1F7F/recs/test_999*')
+    subprocess.Popen("%s %s" % ('rm', '/media/pi/2AA09E4DA09E1F7F/recs/test_999*'), shell=True)
     time.sleep(0.5)
-    
+
+with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_length.txt", "wt") as f:
+    writer=csv.writer(f)
+    writer.writerow([rec_length])
+        
 with open("/media/pi/"+mount_dir+"/"+out_filename+"_n_pixels.txt", "wt") as f:
     writer=csv.writer(f)
     writer.writerow([rec_resolution])
@@ -79,8 +81,8 @@ camera.rotation=0
 camera.resolution = (rec_resolution, rec_resolution)
 camera.framerate = rec_rate    #30
 camera.shutter_speed = camera.exposure_speed
-#camera.shutter_speed = int(1E6/rec_rate*.9)                #WHAT DOES THIS DO EXACTLY ????????????
-camera.shutter_speed = 2000 #10 msec
+
+camera.shutter_speed = 15000 #10 msec ******************************************
 
 print ("...camera.shutter_speed...", camera.shutter_speed )
 camera.clock_mode = 'raw'       #This outputs absolute GPU clock time instead of Delta_time
@@ -119,7 +121,7 @@ else:
 #**************************** SET GAINS ******************************
 #*********************************************************************
 
-if False: 
+if True: 
     print(camera.analog_gain)
     print(camera.digital_gain)
     print ("Pre intensity: analog_gain: ", camera.analog_gain, "   digital_gai: ", camera.digital_gain)
@@ -146,7 +148,7 @@ else:
 #*************************** SET INTENSITIES *************************
 #*********************************************************************
 
-if False:
+if True:
     #Writ test_mode flag to disk (i.e. '3'); value is read in write_mode loop and intensity calibration is run
     with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_mode.txt", "wt") as f:
         writer=csv.writer(f)
@@ -176,13 +178,12 @@ if recording:
     print("Recording boissss.")
     GPIO.output(server_pin, True)
     
-    camera_obj = mo.MMALCamera()
-    camera_obj.rec_length = rec_length
-    camera_obj.rec_rate = rec_rate
-    camera_obj.first_100_frames_filename = "/media/pi/" + mount_dir + "/" + out_filename + '.raw_first_100_frames.txt'
-
-
     ##********* GPU CLOCK PROCESSING ***********
+    #camera_obj = mo.MMALCamera()
+    #camera_obj.rec_length = rec_length
+    #camera_obj.rec_rate = rec_rate
+    #camera_obj.first_100_frames_filename = "/media/pi/" + mount_dir + "/" + out_filename + '.raw_first_100_frames.txt'
+
     #if False:
         #strobe(camera_obj)
 
@@ -192,14 +193,18 @@ if recording:
         #t.map(strobe, [camera_obj])
     
     camera.start_recording("/media/pi/"+mount_dir+"/"+out_filename+".raw", format="rgb")
+    
+    #Recompile and run C code
+    #subprocess.Popen(['gcc', '-o output led_trigger.cpp'])
+    time.sleep(1)
+    subprocess.Popen(['sudo', './output'])
 
-    #camera.timestamp, self.camera.frame.timestamp, self.camera.dateTime, self.camera.clockRealTime
 
     camera.wait_recording(rec_length)
+    print ("... *****************saving python data********************************...")
     camera.stop_recording()        
     
-    for k in range(10):
-        print ("... done recording ...")
+    print ("...*************** Done Saving Python data ...")
 
     #t.shutdown()
 

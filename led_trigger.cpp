@@ -24,24 +24,27 @@ uint32_t volatile * unicam_base;
 
 bcm_peripheral gpio;
 
-int pinBit ;
-int pin_blue = 12;             //#26 is short blue; 12 is blue
-int pin_short_blue = 26;                //#12 works; 13 does not
+int pinBit_blue;
+int pin_blue = 12;             //#
+int pinBit_short_blue;
+int pin_short_blue = 26;        //26 is short blue                //#13 does not, 12 does not
     
-int pin = pin_blue;
-int ctr=0;
+//int pin = pin_blue;
+int led_ctr=0;
 
-int useconds = 14000;
-FILE *fp;       //MUST BE GLOBAL
-FILE *myFile;
+int useconds = 1500;
+FILE *fp, *fp_2;       //MUST BE GLOBAL
+FILE *file_name_current_frame;
 
 char line[256]; 
 char file_name[] = "/media/pi/2AA09E4DA09E1F7F/recs/test_999.raw_latest_frame.txt"; //GLOBAL deals with file inside function
-int i;
+unsigned long long i;
 unsigned long long frame_time;
-unsigned long previous_gpu_time=0; 
+unsigned long long previous_gpu_time=0; 
 unsigned long long previous_frame=0;
-    
+
+float rec_length; 
+
 int unicam_open() {
     void* mmap_result;
    
@@ -76,28 +79,30 @@ int unicam_open() {
 //*********************** LED TRIGGERING LOOP *******************
 //***************************************************************
 
-void trigger_led(unsigned long long current_frame, unsigned long long temp_time) {
-      
-    //if ((temp_time-current_frame*ave)>1) {
-    //     printf ("%f\n", temp_time-current_frame*ave);
-    //}
-    fprintf(fp, "%llu %llu\n", temp_time, current_frame);
-    
-    //else {
-    //     printf ("** %f\n", temp_time-current_frame*ave);
-    //}
-    
-    
-    if (ctr%2 == 0) {
+//void trigger_led(unsigned long long current_frame, unsigned long long temp_time) {
+void trigger_led() {
+          
+    if (led_ctr%2 == 0) {
         //ON
-        *(gpio.addr  + 7) =pinBit;
+        *(gpio.addr  + 7) =pinBit_blue;
         //Compute delay and wait
         usleep(useconds);
-
         //OFF
-        *(gpio.addr + 10) =pinBit;
+        *(gpio.addr + 10) =pinBit_blue;
+        //printf("BLUE\n");
     }
-    ctr = ctr+1;
+    
+    else {
+        //ON
+        *(gpio.addr  + 7) =pinBit_short_blue;
+        //Compute delay and wait
+        usleep(useconds);
+        //OFF
+        *(gpio.addr + 10) =pinBit_short_blue;
+        //printf("SHORT-BLUE\n");
+    }
+    
+    led_ctr = led_ctr+1;
 
 }
 
@@ -107,22 +112,29 @@ void trigger_led(unsigned long long current_frame, unsigned long long temp_time)
 //******************************************************
 void read_current_frame(double ave) {
 
-    myFile = fopen(file_name, "r"); //open file for reading
+    //file_name_current_frame = fopen(file_name, "r"); //open file for reading
     
-    //CONVERT raw frametimes to integer for computation below
-    while (fgets(line, sizeof(line), myFile)) {
-    //for (i=0; i<100; ++i) {
-        frame_time = strtoull(line, NULL, 0);
-        //int result = _atoi64(line);
-        //printf("%llu\n", result);
-        //printf("%i %llu \n", i, frame_time[i]);
-        i++;
-    }
-    fclose(myFile);
+    ////CONVERT raw frametimes to integer for computation below
+    //while (fgets(line, sizeof(line), file_name_current_frame)) {
+    ////for (i=0; i<100; ++i) {
+        //frame_time = strtoull(line, NULL, 0);
+        ////int result = _atoi64(line);
+        ////printf("%llu\n", result);
+        ////printf("%i %llu \n", i, frame_time[i]);
+        //i++;
+    //}
+    //fclose(file_name_current_frame);
+    //printf ("Reading current frame\n");
+    fp_2 = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999.raw_latest_frame.txt", "r");
+    fscanf(fp_2, "%llu\n", &previous_gpu_time);
+    fclose(fp_2);
     
-    printf ("Loaded GPU time : %llu\n", frame_time);
-    printf ("...frame no.: %d\n", int(frame_time/ave));
-    previous_gpu_time = frame_time;
+    printf ("....previous GPU time: %llu\n", previous_gpu_time);
+    
+    
+    //printf ("Loaded GPU time : %llu\n", frame_time);
+    //printf ("...frame no.: %d\n", int(frame_time/ave));
+    //previous_gpu_time = frame_time;
     //COMPUTE PREVIOUS FRAME
     
     //return 0;
@@ -144,24 +156,23 @@ void read_current_frame(double ave) {
 //***********************  MAIN LOOP *******************
 //******************************************************
 
-
-
 int main() {
 
-    pinBit  =  1 <<  pin;
+    pinBit_blue  =  1 <<  pin_blue;
+    pinBit_short_blue = 1 << pin_short_blue;
     gpio.addr_p = GPIO_BASE; 
     if(map_peripheral(&gpio, IFACE_DEV_GPIOMEM) == -1) 
     {
         printf("Failed to map the physical GPIO registers into the virtual memory space.\n");
         return 1;
     }
-    
  
     // initialize pin for output
-    *(gpio.addr + (pin/10)) &= ~(7<<((pin %10)*3));
-    *(gpio.addr + (pin/10)) |=  (1<<((pin%10)*3));
-    
-    
+    *(gpio.addr + (pin_blue/10)) &= ~(7<<((pin_blue %10)*3));
+    *(gpio.addr + (pin_blue/10)) |=  (1<<((pin_blue%10)*3));
+    *(gpio.addr + (pin_short_blue/10)) &= ~(7<<((pin_short_blue %10)*3));
+    *(gpio.addr + (pin_short_blue/10)) |=  (1<<((pin_short_blue%10)*3));
+        
     // GENERATE Memory mapping
     printf("Openning unicam 1...\n");
     if (unicam_open() == -1) {
@@ -169,45 +180,76 @@ int main() {
       return 1;
     }
 
-    //*********** GENERATE TIME STAMPS FROM DISK **************
-    // LOAD data file from disk;
-
-    double ave;
-    int new_frame=0;
-    //int ifi[100];
-    
-    ave = 16611.25;
-    
-    printf ("Average interframe interval:%f \n", ave);
-
+    // DEFINE inter-frame-interval (this comes based on experience dealing with picam; migth be worth exploring more
+    double ave = 16611.26; //60Hz inter frame interval values;
+    printf ("Average inter-frame-interval:%f \n", ave);
    
-    //***************** WHILE LOOP WAITING FOR NEXT FRAME **********************
-    //Open file for saving 
-    fp = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999_led_times.txt", "w");
+    //LOAD recording length in seconds
+    FILE *o;    
+    o = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999_rec_length.txt", "r");
+    fscanf(o, "%5f", &rec_length);
+    printf("rec length = %.5f sec\n", rec_length);
+    fclose(o);
+    
+    // LOOP Over strobing function
+    unsigned long long temp_time, end_time, temp_time_array[100000];
+    unsigned long long current_frame, current_frame_array[100000];
 
-    unsigned long long temp_time, current_frame;
-    while (1) {
+    temp_time = unicam_base[2];  //bit shift nearby 
+    temp_time = temp_time<<32;
+    temp_time = temp_time + unicam_base[1];
+    end_time = temp_time + (rec_length+5)*1E6;  //end 20 seconds after python picam code finishes
+    printf ("start: %llu  end: %llu\n", temp_time, end_time);
+    
+
+    //for while (loop_var) {
+    unsigned long index = 0; 
+    for (i=0; i<100000000000; ++i) {
     //int a;
     //for (a=0; a<20000000; a=a+1){
         //READ current GPU time stamp and determine what the current_frame # is
-        temp_time = unicam_base[1];  //Offset GPU time by latest info on previous frame_time; Helps with Drift
+        temp_time = unicam_base[2];  //bit shift nearby 
+        temp_time = temp_time<<32;
+        temp_time = temp_time + unicam_base[1];
         current_frame = (temp_time-previous_gpu_time) / ave;
         
+        //printf ("%llu %llu %llu %llu\n", temp_time, previous_gpu_time, current_frame, previous_frame);
         //TRIGGER lights/printout statements if new frame is detected
         if (current_frame > previous_frame) {
-            printf ("%llu %llu %llu\n", temp_time, previous_gpu_time, current_frame);
-            trigger_led(current_frame, temp_time);
+            //printf ("%llu %llu %llu %llu\n", temp_time, previous_gpu_time, current_frame, previous_frame);
+            
+            //Save data in arrays - to be saved to disk later
+            temp_time_array[index] = temp_time;
+            current_frame_array[index] = current_frame;
+            index=index+1;
+            ////Trigger leds
+            trigger_led();
             previous_frame=current_frame;
 
-            if ((current_frame%60)==0){
-                read_current_frame(ave);
-                previous_frame=0;
+            //Load latest frame from disk every X seconds
+            if ((current_frame%3670)==0){
+                fp_2 = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999.raw_latest_frame.txt", "r");
+                fscanf(fp_2, "%llu\n", &previous_gpu_time);
+                fclose(fp_2);
+                
+                printf ("....previous GPU time: %llu\n", previous_gpu_time);
+    
+                //read_current_frame(ave);
+                previous_frame = 0;
+            }
+
+            if (temp_time>end_time){
+                break;
             }
         }
-
     }
-    
+    printf("...Saving led times...");
+    fp = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999_led_times.txt", "w");
+    for (i=0; i<(index+1); ++i) {
+        fprintf(fp, "%llu %llu\n", temp_time_array[i], current_frame_array[i]);
+    }
     fclose(fp);
     
-   return 0;
+    printf ("Clean exit\n");
+    return 0;
 }
