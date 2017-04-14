@@ -38,7 +38,7 @@ else:
     rec_resolution = 256 
     rec_rate = 60
     rec_mode = 1 
-    rec_length = 30/rec_rate+60
+    rec_length = 30/rec_rate+300
     
     subprocess.Popen("%s %s" % ('rm', '/media/pi/2AA09E4DA09E1F7F/recs/test_999*'), shell=True)
     time.sleep(0.5)
@@ -101,7 +101,7 @@ if True:
 #**************************** ALIGN CAMERA ***************************
 #*********************************************************************
 
-if False: 
+if True: 
     try:
         print('Align imaging (ctrl+c to exit)')
         camera.preview_fullscreen = False
@@ -121,7 +121,7 @@ else:
 #**************************** SET GAINS ******************************
 #*********************************************************************
 
-if True: 
+if False: 
     print(camera.analog_gain)
     print(camera.digital_gain)
     print ("Pre intensity: analog_gain: ", camera.analog_gain, "   digital_gai: ", camera.digital_gain)
@@ -148,7 +148,7 @@ else:
 #*************************** SET INTENSITIES *************************
 #*********************************************************************
 
-if True:
+if False:
     #Writ test_mode flag to disk (i.e. '3'); value is read in write_mode loop and intensity calibration is run
     with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_mode.txt", "wt") as f:
         writer=csv.writer(f)

@@ -1,3 +1,6 @@
+// COMPILE: 
+//gcc -o output led_trigger.cpp
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
