@@ -50,7 +50,8 @@ float rec_length;
 
 int unicam_open() {
     void* mmap_result;
-   
+    
+    printf ("...memory maping...");
     mmap_fd = open("/dev/mem", O_RDWR | O_SYNC);
    
     if (mmap_fd < 0) {
@@ -159,8 +160,12 @@ void read_current_frame(double ave) {
 //***********************  MAIN LOOP *******************
 //******************************************************
 
-int strobe_c(volatile int *last_frame) {
+int strobe_c(volatile long long unsigned *gpu_last_frame) {
+//void strobe_c(int num_numbers, volatile int *numbers) {
+
     printf ("...starting c strobing...");
+    printf ("...last frame in: %llu\n", gpu_last_frame[0]);
+    
     pinBit_blue  =  1 <<  pin_blue;
     pinBit_short_blue = 1 << pin_short_blue;
     gpio.addr_p = GPIO_BASE; 
@@ -220,7 +225,8 @@ int strobe_c(volatile int *last_frame) {
         //TRIGGER lights/printout statements if new frame is detected
         if (current_frame > previous_frame) {
             //printf ("%llu %llu %llu %llu\n", temp_time, previous_gpu_time, current_frame, previous_frame);
-            
+            printf ("...last frame in: %llu\n", gpu_last_frame[0]);
+
             //Save data in arrays - to be saved to disk later
             temp_time_array[index] = temp_time;
             current_frame_array[index] = current_frame;

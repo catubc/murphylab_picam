@@ -4,7 +4,11 @@ import picamera
 import RPi.GPIO as GPIO
 import csv
 import subprocess
-#from concurrent.futures import ThreadPoolExecutor
+
+from concurrent.futures import ThreadPoolExecutor
+
+from strobe import strobe
+
 #from picamera import mmal, mmalobj as mo
 #from utils import strobe
 
@@ -38,7 +42,7 @@ else:
     rec_resolution = 256 
     rec_rate = 60
     rec_mode = 1 
-    rec_length = 30/rec_rate+300
+    rec_length = 30/rec_rate+60
     
     subprocess.Popen("%s %s" % ('rm', '/media/pi/2AA09E4DA09E1F7F/recs/test_999*'), shell=True)
     time.sleep(0.5)
@@ -82,7 +86,7 @@ camera.resolution = (rec_resolution, rec_resolution)
 camera.framerate = rec_rate    #30
 camera.shutter_speed = camera.exposure_speed
 
-camera.shutter_speed = 15000 #10 msec ******************************************
+camera.shutter_speed = 1500 #10 msec ******************************************
 
 print ("...camera.shutter_speed...", camera.shutter_speed )
 camera.clock_mode = 'raw'       #This outputs absolute GPU clock time instead of Delta_time
@@ -175,37 +179,23 @@ if False:
 
 if recording:
 
-    print("Recording boissss.")
+    print("Camera Initializing...")
     GPIO.output(server_pin, True)
-    
-    ##********* GPU CLOCK PROCESSING ***********
-    #camera_obj = mo.MMALCamera()
-    #camera_obj.rec_length = rec_length
-    #camera_obj.rec_rate = rec_rate
-    #camera_obj.first_100_frames_filename = "/media/pi/" + mount_dir + "/" + out_filename + '.raw_first_100_frames.txt'
-
-    #if False:
-        #strobe(camera_obj)
-
-    ##************ MULTI THREAD VERSION **************
-    #else: 
-        #t = ThreadPoolExecutor(max_workers=1)
-        #t.map(strobe, [camera_obj])
-    
     camera.start_recording("/media/pi/"+mount_dir+"/"+out_filename+".raw", format="rgb")
-    
-    #Recompile and run C code
-    #subprocess.Popen(['gcc', '-o output led_trigger.cpp'])
     time.sleep(1)
-    subprocess.Popen(['sudo', './output'])
+
+    #THIS NEEDS TO BE INSIDE ENCODERS
+    #Declare last frame variable using ctypes: e.g. _sum.numbers = (ctypes.c_int * 5)(*range(5))
+
+    #INITIALIZE ONLY ONCE 
+    #t = ThreadPoolExecutor(max_workers=1)
+    #t.map(strobe, [camera_obj])
 
 
+
+    print("Camera recording for: ", rec_length)
     camera.wait_recording(rec_length)
-    print ("... *****************saving python data********************************...")
+    print ("...saving python data...")
     camera.stop_recording()        
     
-    print ("...*************** Done Saving Python data ...")
-
-    #t.shutdown()
-
-    #quit()
+    print ("...Done saving python data ...")
