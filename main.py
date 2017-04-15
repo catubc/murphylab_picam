@@ -41,8 +41,8 @@ else:
     out_filename = 'test_999'
     rec_resolution = 256 
     rec_rate = 60
-    rec_mode = 1 
-    rec_length = 30/rec_rate+60
+    rec_mode = 0
+    rec_length = 30/rec_rate+45
     
     subprocess.Popen("%s %s" % ('rm', '/media/pi/2AA09E4DA09E1F7F/recs/test_999*'), shell=True)
     time.sleep(0.5)
@@ -85,11 +85,25 @@ camera.rotation=0
 camera.resolution = (rec_resolution, rec_resolution)
 camera.framerate = rec_rate    #30
 camera.shutter_speed = camera.exposure_speed
+camera.clock_mode = 'raw'       #This outputs absolute GPU clock time instead of Delta_time
 
-camera.shutter_speed = 1500 #10 msec ******************************************
+#********************************************************************************************************
+#********************* CAMERA SHUTTER SPEED, LED EXPOSURE TIME AND AVE FRAME ****************************
+#********************************************************************************************************
+
+camera.shutter_speed = 1500 #10 msec 
+ave_ifi = 16611.26     #inter-frame-interval betweeen each frame at 60Hz; MUST GET THESE VALUES FROM ESTIMATES
+led_duration = 15000 #ave_ifi - camera.shutter_speed
 
 print ("...camera.shutter_speed...", camera.shutter_speed )
-camera.clock_mode = 'raw'       #This outputs absolute GPU clock time instead of Delta_time
+
+with open("/media/pi/"+mount_dir+"/"+out_filename+"_ave_ifi.txt", "wt") as f:
+    writer=csv.writer(f)
+    writer.writerow([ave_ifi])
+with open("/media/pi/"+mount_dir+"/"+out_filename+"_led_duration.txt", "wt") as f:
+    writer=csv.writer(f)
+    writer.writerow([led_duration])
+
 
 
 if True:
@@ -105,7 +119,7 @@ if True:
 #**************************** ALIGN CAMERA ***************************
 #*********************************************************************
 
-if True: 
+if False: 
     try:
         print('Align imaging (ctrl+c to exit)')
         camera.preview_fullscreen = False
@@ -195,7 +209,7 @@ if recording:
 
     print("Camera recording for: ", rec_length)
     camera.wait_recording(rec_length)
-    print ("...saving python data...")
+    print ("...saving python data...",)
     camera.stop_recording()        
     
-    print ("...Done saving python data ...")
+    print ("...done saving python data ...")

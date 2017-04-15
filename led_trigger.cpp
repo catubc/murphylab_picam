@@ -46,6 +46,8 @@ unsigned long long frame_time;
 unsigned long long previous_gpu_time=0; 
 unsigned long long previous_frame=0;
 
+double ave = 16611.26; //60Hz inter frame interval values;
+
 float rec_length; 
 
 int unicam_open() {
@@ -93,6 +95,7 @@ void trigger_led() {
         //OFF
         *(gpio.addr + 10) =pinBit_blue;
         //printf("BLUE\n");
+        usleep(ave-useconds);
     }
     
     else {
@@ -184,7 +187,6 @@ int strobe_c(volatile int *last_frame) {
     }
 
     // DEFINE inter-frame-interval (this comes based on experience dealing with picam; migth be worth exploring more
-    double ave = 16611.26; //60Hz inter frame interval values;
     printf ("Average inter-frame-interval:%f \n", ave);
    
     //LOAD recording length in seconds
