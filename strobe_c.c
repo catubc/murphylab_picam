@@ -39,7 +39,7 @@ long j, k;
 int unicam_open() {
     void* mmap_result;
     
-    printf ("...memory maping...\n");
+    //printf ("...memory maping...\n");
     mmap_fd = open("/dev/mem", O_RDWR | O_SYNC);
    
     if (mmap_fd < 0) {
@@ -131,7 +131,7 @@ void trigger_led(int index, int led_duration) {
 int strobe_c(volatile long long unsigned *gpu_last_frame) {
 //void strobe_c(int num_numbers, volatile int *numbers) {
 
-    printf ("...starting c strobing...");
+    printf ("...starting C strobing...\n");
     //printf ("...last frame in: %llu\n", gpu_last_frame[0]);
     
     pinBit_blue  =  1 <<  pin_blue;
@@ -150,7 +150,7 @@ int strobe_c(volatile long long unsigned *gpu_last_frame) {
     *(gpio.addr + (pin_short_blue/10)) |=  (1<<((pin_short_blue%10)*3));
         
     // GENERATE Memory mapping
-    printf("Openning unicam 1...\n");
+    //printf("Openning unicam 1...\n");
     if (unicam_open() == -1) {
       printf("Openning unicam failed\n");
       return 1;

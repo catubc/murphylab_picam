@@ -42,7 +42,7 @@ else:
     rec_resolution = 256 
     rec_rate = 60
     rec_mode = 0
-    rec_length = 30/rec_rate+45
+    rec_length = 30/rec_rate+10
     
     subprocess.Popen("%s %s" % ('rm', '/media/pi/2AA09E4DA09E1F7F/recs/test_999*'), shell=True)
     time.sleep(0.5)
@@ -206,10 +206,9 @@ if recording:
     #t.map(strobe, [camera_obj])
 
 
-
     print("Camera recording for: ", rec_length)
     camera.wait_recording(rec_length)
-    print ("...saving python data...",)
+    print ("...closing picam...",)
     camera.stop_recording()        
     
-    print ("...done saving python data ...")
+    print ("...done closing picam ...")
