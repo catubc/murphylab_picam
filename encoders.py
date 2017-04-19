@@ -41,15 +41,15 @@ try:
 except NameError:
     pass
 
-import io
+import io, os
 import datetime
 import threading
 import warnings
 import ctypes as ct
 import numpy as np
 import struct
-#import matplotlib
-#matplotlib.use('GTkAgg')
+
+#Additions by Cat
 import matplotlib.pylab as plt
 
 from . import mmal, mmalobj as mo
@@ -286,6 +286,7 @@ class PiEncoder(object):
         return stop
 
     def _callback_write(self, buf, key=PiVideoFrameType.frame):
+       
         """
         Writes output on behalf of the encoder callback function.
 
@@ -306,18 +307,46 @@ class PiEncoder(object):
             with self.outputs_lock:
                 try:
                     output = self.outputs[key][0]
-                    self.output_times.append (self.frame.timestamp)                 #Save timestamp to list
-                    print (".............", len(buf))
+                    self.output_times.append(self.frame.timestamp)      #Save time stamps for each frame in list
+                    self.gpu_last_frame[0]= self.frame.timestamp        #Save time stamp in ctype for C access; DONOT CHANGE !!
                     
-                    #Different options
-                    if self.write_mode == 1:                    #Write do disk directly
-                        written = output.write(buf.data)
-                    elif self.write_mode == 2:                  #Write to memory only
-                        self.written_array.append(buf.data)
-                        written = buf.length
-                    elif self.write_mode == 3:                  #Intensity fuction option
+                    #PARALLEL SAVE IN C --------- should eventually be default mode if it works; ONE LESS CONDITIONAL
+                    if self.write_mode == 0:                    #Write do disk directly
+                        stack_index = int(self.frame_ctr[0]/self.save_block[0])%2 #this can be 0 or 1
+                        if (stack_index==0): 
+                            self.image_stack_0[self.frame_ctr[0]%self.save_block[0]].value=buf.data
+                        else:
+                            self.image_stack_1[self.frame_ctr[0]%self.save_block[0]].value=buf.data
+                            
+                        #Unpacking is way too slow here
+                        #self.image_stack[stack_index][self.frame_ctr[0]%100] = struct.unpack(self.n_pixels_string,buf.data)
+                        #self.image_stack[stack_index][self.frame_ctr[0]%100].value=np.ndarray(196608,'<B', buf.data)
+                        #self.image_stack[stack_index][self.frame_ctr[0]%100]=buf.data
+                        #print (type (buf.data), type(buf.data[0]), type(buf.data[10000]))
+                        #print ("Stack: ", stack_index, "  Py frame: ", self.frame_ctr[0], struct.unpack(self.n_pixels_string,buf.data)[5000:5005])
+                        #print (self.image_stack[stack_index][self.frame_ctr[0]%100][5000:5005], "\n")
                         
-                        #TODO: ************* Move these display functions to separate function *******************
+                        written = buf.length
+                        
+                        #TEMPORARILY save to disk FOR DEBUGGING
+                        #written = output.write(buf.data)
+                        
+                        #self.written_array.append(buf.data)
+                        
+                        self.frame_ctr[0]=self.frame_ctr[0]+1   #This value is dynamically tracked in C; carefulwhere placed
+
+                        #    written = buf.length
+                    #SAVE TO DISK DIRECTLY
+                    elif self.write_mode == 1:                    #Write do disk directly
+                        written = output.write(buf.data)
+                        
+                    #SAVE TO MEMORY ONLY
+                    elif self.write_mode == 2:                  #Write to memory only
+                        #self.written_array.append(buf.data)
+                        written = buf.length
+                    
+                    #ITENSITY CHECKING CODE ************* THIS NEEDS TO BE MOVED FROM HERE *******************
+                    elif self.write_mode == 3:
                         data_array = struct.unpack(self.n_pixels_string,buf.data)
 
                         #print ("Percentile / Mean / Max      R:", int(np.percentile(data_array[::3],96)),'/',int(np.mean(data_array[::3])),'/',np.max(data_array[::3]),
@@ -371,7 +400,24 @@ class PiEncoder(object):
                             "Failed to write %d bytes from buffer to "
                             "output %r" % (buf.length, output))
         return bool(buf.flags & mmal.MMAL_BUFFER_HEADER_FLAG_EOS)
- 
+
+    #Cat function to start strobing lights
+    def strobe(self):
+        ''' Strobe code. First, call python code on separate thread to initalize C code for strobing.
+            Second, call strobe code in C, passing pointer to last_frame values.
+        '''
+        _sum = ct.CDLL('/home/pi/murphylab_picam/strobe_c.so')
+        _sum.strobe_c.argtype = (ct.POINTER(ct.c_uint64))
+        _sum.strobe_c(self.gpu_last_frame)
+    
+    def c_saving(self):
+        ''' Code to save data to disk in parallel to ongoing acquisition
+        '''
+        _sum = ct.CDLL('/home/pi/murphylab_picam/save_c.so')
+        _sum.save_c.argtype = (ct.POINTER(ct.c_int32), ct.POINTER(ct.c_int32), ct.POINTER(ct.c_char), ct.POINTER(ct.c_char))
+        _sum.save_c(self.save_block, self.frame_ctr, self.image_stack_0, self.image_stack_1)
+        
+    
     def _open_output(self, output, key=PiVideoFrameType.frame):
         """
         Opens *output* and associates it with *key* in :attr:`outputs`.
@@ -395,12 +441,28 @@ class PiEncoder(object):
                 self.output_file_name = output
                 self.written_array = [] #np.zeros((9100, 128*128*3), dtype=np.uint8)
                 self.output_times = []
+                self.first_100_frames=[]
                 #self.output_times = open(output + '_time.txt', 'wt')
                 self.write_counter = 0
 
+                #INITIALIZE last frame variable; start parallel process;
+                #Declare using ctypes: e.g. _sum.numbers = (ctypes.c_int * 5)(*range(5))
+
+                ''' PARALLEL STROBING CODE
+                    INITIALIZE frame variable to be share with C; NB: Must use array and insert val into index=0; 
+                    #otherwise the entire variable object is destroyed every frame time assignment
+                '''
+                self.gpu_last_frame = (ct.c_uint64*2)(*range(2))    #Init variable
+                t = threading.Thread(target=self.strobe)            #start python+C code on 2nd thread
+                t.start()
+    
                 #Load number of pixels from disk:
                 self.n_pixels = np.loadtxt(output[:-4]+"_n_pixels.txt")
                 self.n_pixels_string = str(int(self.n_pixels)**2*3)+"B"      #Need this for intensity check above to convert byte to data
+                
+                #Open a file to write lastest frame; do not close it;
+                #self.latest_frame_file = open(self.output_file_name + '_latest_frame.txt', 'w') 
+                #self.latest_frame_file.write('%d' % self.frame.timestamp)
                 
                 #Load mode from disk; couldn't figure out how to pass attribute to encoder object
                 self.write_mode = np.loadtxt(output[:-4]+'_rec_mode.txt')
@@ -409,6 +471,26 @@ class PiEncoder(object):
                     #print (rcsetup.all_backends)
                     plt.ion()
 
+                ''' PARALLEL C SAVE CODE. 
+                    Requires initalization of 2 arrays;
+                '''
+                if self.write_mode == 0:
+                    self.save_block = (ct.c_int32*2)()
+                    self.save_block[0] = 1000
+                    self.frame_ctr = (ct.c_int32*2)()
+                    self.frame_ctr.value = 0           #Starting value of counter; need to index on entry to loop above
+                    #self.frame_ctr[1] = 0              #value = -2 is set on exit to as flag to C code
+                    #self.frame_ctr=0
+                    #print (type(self.frame_ctr))
+                    #self.image_stack = (((ct.c_uint8*2)*100)*(int(self.n_pixels)**2*3))()   #Init 2 x 100 x size of each stack
+                    #self.image_stack = (((ct.c_byte*(int(self.n_pixels)**2*3))*100)*2)()   #Init 2 x 100 x size of each stack
+                    self.image_stack_0 = ((ct.c_char*(int(self.n_pixels)**2*3))*self.save_block[0])()   #Init 2 x 100 x size of each stack
+                    self.image_stack_1 = ((ct.c_char*(int(self.n_pixels)**2*3))*self.save_block[0])()   #Init 2 x 100 x size of each stack
+                    #self.image_stack[0][99][0]=0
+                    #self.image_stack[1][99][0]=0
+                    t = threading.Thread(target=self.c_saving)            #start python+C code on 2nd thread
+                    t.start()
+                
                 #print ("... write_mode: ", self.write_mode)                
                 output = io.open(output, 'wb', buffering=0) #65536
             else:
@@ -433,7 +515,10 @@ class PiEncoder(object):
         #Close matplotlib figs
         #plt.close()
         
-
+        if self.write_mode==0:
+            self.frame_ctr[1]=1       #Save this flag for C code to indicate termination; necessary because otherwise C will loop indefinitely
+                                    #might be doable another way
+        
         file_out = open(self.output_file_name + '_time.txt', 'wt')
         for time in self.output_times: file_out.write(str(time)+'\n') #self.camera.
         file_out.close()
