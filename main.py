@@ -41,8 +41,8 @@ else:
     out_filename = 'test_999'
     rec_resolution = 256 
     rec_rate = 60
-    rec_mode = 0
-    rec_length = 30/rec_rate+10
+    rec_mode = 1
+    rec_length = 30/rec_rate+600
     
     subprocess.Popen("%s %s" % ('rm', '/media/pi/2AA09E4DA09E1F7F/recs/test_999*'), shell=True)
     time.sleep(0.5)
