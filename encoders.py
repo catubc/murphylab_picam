@@ -317,15 +317,7 @@ class PiEncoder(object):
                             self.image_stack_0[self.frame_ctr[0]%self.save_block[0]].value=buf.data
                         else:
                             self.image_stack_1[self.frame_ctr[0]%self.save_block[0]].value=buf.data
-                            
-                        #Unpacking is way too slow here
-                        #self.image_stack[stack_index][self.frame_ctr[0]%100] = struct.unpack(self.n_pixels_string,buf.data)
-                        #self.image_stack[stack_index][self.frame_ctr[0]%100].value=np.ndarray(196608,'<B', buf.data)
-                        #self.image_stack[stack_index][self.frame_ctr[0]%100]=buf.data
-                        #print (type (buf.data), type(buf.data[0]), type(buf.data[10000]))
-                        #print ("Stack: ", stack_index, "  Py frame: ", self.frame_ctr[0], struct.unpack(self.n_pixels_string,buf.data)[5000:5005])
-                        #print (self.image_stack[stack_index][self.frame_ctr[0]%100][5000:5005], "\n")
-                        
+
                         written = buf.length
                         
                         #TEMPORARILY save to disk FOR DEBUGGING

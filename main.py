@@ -26,7 +26,8 @@ from strobe import strobe
 #*********************************************************************
 
 #mount_dir = "52C9C2EE6A8E5C89/recs"    #SSD
-mount_dir = '2AA09E4DA09E1F7F/recs'     #1TB
+#mount_dir = '2AA09E4DA09E1F7F/recs'     #1TB
+mount_dir = 'seagate_external/recs'
 #mount_dir = 'recs'     #internal flash
 
 if False:
@@ -42,9 +43,9 @@ else:
     rec_resolution = 256 
     rec_rate = 60
     rec_mode = 1
-    rec_length = 30/rec_rate+600
+    rec_length = 30/rec_rate+1
     
-    subprocess.Popen("%s %s" % ('rm', '/media/pi/2AA09E4DA09E1F7F/recs/test_999*'), shell=True)
+    subprocess.Popen("%s %s" % ('rm', "/media/pi/"+mount_dir+'/test_999*'), shell=True)
     time.sleep(0.5)
 
 with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_length.txt", "wt") as f:
@@ -166,16 +167,22 @@ else:
 #*************************** SET INTENSITIES *************************
 #*********************************************************************
 
-if False:
-    #Writ test_mode flag to disk (i.e. '3'); value is read in write_mode loop and intensity calibration is run
+if True:
+    #Write test_mode flag to disk (i.e. '3'); value is read in write_mode loop and intensity calibration is run
     with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_mode.txt", "wt") as f:
         writer=csv.writer(f)
         writer.writerow([3])
 
+    intensity_rec_len = 30
+    with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_length.txt", "wt") as f:
+        writer=csv.writer(f)
+        writer.writerow([intensity_rec_len])
+    
+    
     print("Checking intensity boissss.")
     GPIO.output(server_pin, True)
     camera.start_recording("/media/pi/"+mount_dir+"/"+out_filename+".raw", format="rgb")
-    camera.wait_recording(30)
+    camera.wait_recording(intensity_rec_len)
     camera.stop_recording()        
     GPIO.output(server_pin, False)
     
@@ -183,10 +190,11 @@ if False:
     with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_mode.txt", "wt") as f:
         writer=csv.writer(f)
         writer.writerow([rec_mode])
-
-    print ("Post intensity setting: analog_gain: ", camera.analog_gain, "   digital_gai: ", camera.digital_gain)
-
-
+    
+    with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_length.txt", "wt") as f:
+        writer=csv.writer(f)
+        writer.writerow([rec_length])
+    #time.sleep(2)
 #*********************************************************************
 #**************************** RECORDING ******************************
 #*********************************************************************
@@ -195,15 +203,9 @@ if recording:
 
     print("Camera Initializing...")
     GPIO.output(server_pin, True)
+    print("/media/pi/"+mount_dir+"/"+out_filename+".raw")
     camera.start_recording("/media/pi/"+mount_dir+"/"+out_filename+".raw", format="rgb")
     time.sleep(1)
-
-    #THIS NEEDS TO BE INSIDE ENCODERS
-    #Declare last frame variable using ctypes: e.g. _sum.numbers = (ctypes.c_int * 5)(*range(5))
-
-    #INITIALIZE ONLY ONCE 
-    #t = ThreadPoolExecutor(max_workers=1)
-    #t.map(strobe, [camera_obj])
 
 
     print("Camera recording for: ", rec_length)

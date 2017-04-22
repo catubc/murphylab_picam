@@ -128,12 +128,13 @@ void trigger_led(int index, int led_duration) {
 //***********************  MAIN LOOP *******************
 //******************************************************
 
-int strobe_c(volatile long long unsigned *gpu_last_frame) {
+int strobe_c(volatile long long unsigned *gpu_last_frame, 
+                volatile long unsigned *save_led_state) {
 //void strobe_c(int num_numbers, volatile int *numbers) {
 
     printf ("...starting C strobing...\n");
-    //printf ("...last frame in: %llu\n", gpu_last_frame[0]);
-    
+    printf ("...last frame in: %llu\n", gpu_last_frame[0]);
+
     pinBit_blue  =  1 <<  pin_blue;
     pinBit_short_blue = 1 << pin_short_blue;
     gpio.addr_p = GPIO_BASE; 
@@ -159,21 +160,21 @@ int strobe_c(volatile long long unsigned *gpu_last_frame) {
     // Load inter-frame-interval (this comes based on experience dealing with picam; migth be worth exploring more)
     FILE *o; 
     float ave_ifi;   
-    o = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999_ave_ifi.txt", "r");
+    o = fopen("/media/pi/seagate_external/recs/test_999_ave_ifi.txt", "r");
     fscanf(o, "%10f", &ave_ifi);
     printf("ave_ifi = %.8f usec\n", ave_ifi);
     fclose(o);
 
     //Load led ON times
     int led_duration;  
-    o = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999_led_duration.txt", "r");
+    o = fopen("/media/pi/seagate_external/recs/test_999_led_duration.txt", "r");
     fscanf(o, "%i", &led_duration);
     printf("led_duration = %.5i usec\n", led_duration);
     fclose(o);
    
     //LOAD recording length in seconds
     float rec_length; 
-    o = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999_rec_length.txt", "r");
+    o = fopen("/media/pi/seagate_external/recs/test_999_rec_length.txt", "r");
     fscanf(o, "%5f", &rec_length);
     printf("rec length = %.5f sec\n", rec_length);
     fclose(o);
@@ -187,7 +188,7 @@ int strobe_c(volatile long long unsigned *gpu_last_frame) {
     gpu_time = unicam_base[2];  //load and bit shift nearby 32bit chunk
     gpu_time = gpu_time<<32;
     gpu_time = gpu_time + unicam_base[1];
-    end_time = gpu_time + (rec_length+5)*1E6;  //end 20 seconds after python picam code finishes
+    end_time = gpu_time + (rec_length+0.1)*1E6;  //end 20 seconds after python picam code finishes
     printf ("start: %llu  end: %llu\n", gpu_time, end_time);
     
 
@@ -245,14 +246,19 @@ int strobe_c(volatile long long unsigned *gpu_last_frame) {
             if (gpu_time>end_time) break;
         }
     }
-    printf("...Saving led times in C...");
-    FILE *fp;                    //Not sure how many of these are still required
-    fp = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999_led_times.txt", "w");
-    for (j=0; j<(index+1); ++j) {
-        fprintf(fp, "%llu %llu %llu\n", gpu_time_array[j], current_frame_array[j], index_array[j]);
+    if (save_led_state[0]==1) {
+        printf("...Saving led times in C...\n");
+        FILE *fp;                    //Not sure how many of these are still required
+        fp = fopen("/media/pi/seagate_external/recs/test_999_led_times.txt", "w");
+        for (j=0; j<(index+1); ++j) {
+            fprintf(fp, "%llu %llu %llu\n", gpu_time_array[j], current_frame_array[j], index_array[j]);
+        }
+        fclose(fp);
+        printf ("...done strobing, saved led times...\n");
     }
-    fclose(fp);
+    else {
+        printf("...done strobing no saving...\n"); 
+    }
     
-    printf ("...done...\n");
     return 0;
 }

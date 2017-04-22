@@ -52,7 +52,7 @@ int save_c(volatile unsigned long *save_block, volatile unsigned long *frame_ctr
             
             if (stack_index==0){
                 for (i=0; i<remainder_frames; i++) {
-                    fwrite((void *)&image_stack_0[i], sizeof(unsigned char), 196608, f);
+                    fwrite((void *)&image_stack_0[i], sizeof(unsigned char), 196608, f); //FIX THIS
                 }
             }
             else {
