@@ -135,6 +135,8 @@ int strobe_c(volatile long long unsigned *gpu_last_frame,
     printf ("...starting C strobing...\n");
     printf ("...last frame in: %llu\n", gpu_last_frame[0]);
 
+    
+    
     pinBit_blue  =  1 <<  pin_blue;
     pinBit_short_blue = 1 << pin_short_blue;
     gpio.addr_p = GPIO_BASE; 
@@ -160,21 +162,21 @@ int strobe_c(volatile long long unsigned *gpu_last_frame,
     // Load inter-frame-interval (this comes based on experience dealing with picam; migth be worth exploring more)
     FILE *o; 
     float ave_ifi;   
-    o = fopen("/media/pi/seagate_external/recs/test_999_ave_ifi.txt", "r");
+    o = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999_ave_ifi.txt", "r");
     fscanf(o, "%10f", &ave_ifi);
     printf("ave_ifi = %.8f usec\n", ave_ifi);
     fclose(o);
 
     //Load led ON times
     int led_duration;  
-    o = fopen("/media/pi/seagate_external/recs/test_999_led_duration.txt", "r");
+    o = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999_led_duration.txt", "r");
     fscanf(o, "%i", &led_duration);
     printf("led_duration = %.5i usec\n", led_duration);
     fclose(o);
    
     //LOAD recording length in seconds
     float rec_length; 
-    o = fopen("/media/pi/seagate_external/recs/test_999_rec_length.txt", "r");
+    o = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999_rec_length.txt", "r");
     fscanf(o, "%5f", &rec_length);
     printf("rec length = %.5f sec\n", rec_length);
     fclose(o);
@@ -249,7 +251,7 @@ int strobe_c(volatile long long unsigned *gpu_last_frame,
     if (save_led_state[0]==1) {
         printf("...Saving led times in C...\n");
         FILE *fp;                    //Not sure how many of these are still required
-        fp = fopen("/media/pi/seagate_external/recs/test_999_led_times.txt", "w");
+        fp = fopen("/media/pi/2AA09E4DA09E1F7F/recs/test_999_led_times.txt", "w");
         for (j=0; j<(index+1); ++j) {
             fprintf(fp, "%llu %llu %llu\n", gpu_time_array[j], current_frame_array[j], index_array[j]);
         }

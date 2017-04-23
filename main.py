@@ -26,9 +26,8 @@ from strobe import strobe
 #*********************************************************************
 
 #mount_dir = "52C9C2EE6A8E5C89/recs"    #SSD
-#mount_dir = '2AA09E4DA09E1F7F/recs'     #1TB
-mount_dir = 'seagate_external/recs'
-#mount_dir = 'recs'     #internal flash
+#mount_dir = '/media/usbhdd/recs/'     #1TB
+mount_dir = '/media/pi/2AA09E4DA09E1F7F/recs/'
 
 if False:
     rec_length = int(input("Enter recording duration (sec): "))                 #Input recording length
@@ -42,25 +41,25 @@ else:
     out_filename = 'test_999'
     rec_resolution = 256 
     rec_rate = 60
-    rec_mode = 1
-    rec_length = 30/rec_rate+1
+    rec_mode = 2
+    rec_length = 30/rec_rate+15
     
-    subprocess.Popen("%s %s" % ('rm', "/media/pi/"+mount_dir+'/test_999*'), shell=True)
+    subprocess.Popen("%s %s" % ('rm', mount_dir+'/test_999*'), shell=True)
     time.sleep(0.5)
 
-with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_length.txt", "wt") as f:
+with open(mount_dir+out_filename+"_rec_length.txt", "wt") as f:
     writer=csv.writer(f)
     writer.writerow([rec_length])
         
-with open("/media/pi/"+mount_dir+"/"+out_filename+"_n_pixels.txt", "wt") as f:
+with open(mount_dir+out_filename+"_n_pixels.txt", "wt") as f:
     writer=csv.writer(f)
     writer.writerow([rec_resolution])
 
-with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_rate.txt", "wt") as f:
+with open(mount_dir+out_filename+"_rec_rate.txt", "wt") as f:
     writer=csv.writer(f)
     writer.writerow([rec_rate])
     
-with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_mode.txt", "wt") as f:
+with open(mount_dir+out_filename+"_rec_mode.txt", "wt") as f:
     writer=csv.writer(f)
     writer.writerow([rec_mode])
 
@@ -98,10 +97,10 @@ led_duration = 15000 #ave_ifi - camera.shutter_speed
 
 print ("...camera.shutter_speed...", camera.shutter_speed )
 
-with open("/media/pi/"+mount_dir+"/"+out_filename+"_ave_ifi.txt", "wt") as f:
+with open(mount_dir+out_filename+"_ave_ifi.txt", "wt") as f:
     writer=csv.writer(f)
     writer.writerow([ave_ifi])
-with open("/media/pi/"+mount_dir+"/"+out_filename+"_led_duration.txt", "wt") as f:
+with open(mount_dir+out_filename+"_led_duration.txt", "wt") as f:
     writer=csv.writer(f)
     writer.writerow([led_duration])
 
@@ -169,29 +168,29 @@ else:
 
 if True:
     #Write test_mode flag to disk (i.e. '3'); value is read in write_mode loop and intensity calibration is run
-    with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_mode.txt", "wt") as f:
+    with open(mount_dir+out_filename+"_rec_mode.txt", "wt") as f:
         writer=csv.writer(f)
         writer.writerow([3])
 
-    intensity_rec_len = 30
-    with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_length.txt", "wt") as f:
+    intensity_rec_len = 15
+    with open(mount_dir+out_filename+"_rec_length.txt", "wt") as f:
         writer=csv.writer(f)
         writer.writerow([intensity_rec_len])
     
     
     print("Checking intensity boissss.")
     GPIO.output(server_pin, True)
-    camera.start_recording("/media/pi/"+mount_dir+"/"+out_filename+".raw", format="rgb")
+    camera.start_recording(mount_dir+out_filename+".raw", format="rgb")
     camera.wait_recording(intensity_rec_len)
     camera.stop_recording()        
     GPIO.output(server_pin, False)
     
     #Put correct rec_mode back into txt file
-    with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_mode.txt", "wt") as f:
+    with open(mount_dir+out_filename+"_rec_mode.txt", "wt") as f:
         writer=csv.writer(f)
         writer.writerow([rec_mode])
     
-    with open("/media/pi/"+mount_dir+"/"+out_filename+"_rec_length.txt", "wt") as f:
+    with open(mount_dir+out_filename+"_rec_length.txt", "wt") as f:
         writer=csv.writer(f)
         writer.writerow([rec_length])
     #time.sleep(2)
@@ -203,8 +202,8 @@ if recording:
 
     print("Camera Initializing...")
     GPIO.output(server_pin, True)
-    print("/media/pi/"+mount_dir+"/"+out_filename+".raw")
-    camera.start_recording("/media/pi/"+mount_dir+"/"+out_filename+".raw", format="rgb")
+    print(mount_dir+out_filename+".raw")
+    camera.start_recording(mount_dir+out_filename+".raw", format="rgb")
     time.sleep(1)
 
 
