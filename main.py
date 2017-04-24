@@ -42,7 +42,7 @@ else:
     rec_resolution = 256 
     rec_rate = 60
     rec_mode = 2
-    rec_length = 30/rec_rate+15
+    rec_length = 30/rec_rate+30
     
     subprocess.Popen("%s %s" % ('rm', mount_dir+'/test_999*'), shell=True)
     time.sleep(0.5)
@@ -71,11 +71,10 @@ recording = True
 #*********************** INITIALIZE CAMERA ***************************
 #*********************************************************************
 
-server_pin = 24
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(server_pin, GPIO.OUT)
-GPIO.output(server_pin, False)
+#server_pin = 24
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setup(server_pin, GPIO.OUT)
+#GPIO.output(server_pin, False)
 
     
 camera=picamera.PiCamera()
@@ -103,8 +102,6 @@ with open(mount_dir+out_filename+"_ave_ifi.txt", "wt") as f:
 with open(mount_dir+out_filename+"_led_duration.txt", "wt") as f:
     writer=csv.writer(f)
     writer.writerow([led_duration])
-
-
 
 if True:
     g = camera.awb_gains
@@ -172,18 +169,16 @@ if True:
         writer=csv.writer(f)
         writer.writerow([3])
 
-    intensity_rec_len = 15
+    intensity_rec_len = 10
     with open(mount_dir+out_filename+"_rec_length.txt", "wt") as f:
         writer=csv.writer(f)
         writer.writerow([intensity_rec_len])
     
     
     print("Checking intensity boissss.")
-    GPIO.output(server_pin, True)
     camera.start_recording(mount_dir+out_filename+".raw", format="rgb")
     camera.wait_recording(intensity_rec_len)
     camera.stop_recording()        
-    GPIO.output(server_pin, False)
     
     #Put correct rec_mode back into txt file
     with open(mount_dir+out_filename+"_rec_mode.txt", "wt") as f:
@@ -201,7 +196,7 @@ if True:
 if recording:
 
     print("Camera Initializing...")
-    GPIO.output(server_pin, True)
+    #GPIO.output(server_pin, True)
     print(mount_dir+out_filename+".raw")
     camera.start_recording(mount_dir+out_filename+".raw", format="rgb")
     time.sleep(1)
